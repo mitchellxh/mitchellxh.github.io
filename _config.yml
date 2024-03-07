@@ -1,1 +1,6 @@
+title: Mitchell Horn
+# logo: /assets/img/logo.png
+description: I am a research computing scientist with an interest in machine learning and cluster configurations with experience in brain imaging research.  
+show_downloads: true
+google_analytics:
 theme: jekyll-theme-minimal
