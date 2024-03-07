@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Russ Poldrack"
+  title: "Mitchell Horn"
  
   navbar:
     left:
@@ -11,7 +11,7 @@ website:
         href: publications
       - text: "Talks"
         href: talks
-      - text: "Blog"
+      - text: "BU Profile"
         href: https://poldrack.github.io/blog
     right:
       - text: "About"
