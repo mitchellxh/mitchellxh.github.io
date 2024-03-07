@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Russ Poldrack"
+ 
+  navbar:
+    left:
+      - text: "Publications"
+        href: publications
+      - text: "Talks"
+        href: talks
+      - text: "Blog"
+        href: https://poldrack.github.io/blog
+    right:
+      - text: "About"
+        href: https://profiles.stanford.edu/russell-poldrack
+      - icon: wikipedia
+        href: https://en.wikipedia.org/wiki/Russell_Poldrack
+      - icon: github
+        href: https://github.com/poldrack
+      - icon: mastodon
+        href: https://mastodon.online/@Russpoldrack
+        rel: me
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+
+
