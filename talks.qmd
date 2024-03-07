@@ -1,0 +1,66 @@
+---
+title: "Russ Poldrack - Talks"
+format:
+  html:
+    page-layout: full
+---
+
+Note: This repository only contains talks generated using my new Markdown-based workflow, starting in November 2022.
+
+
+```{python}
+#| echo: false
+#| output: asis
+
+# this uses the GitHub API to find a all talk repos with web pages and list them
+
+from github import Github
+import pandas as pd
+import requests
+
+with open('.token') as f:
+    token = f.read().strip()
+
+# Github username
+username = "poldrack"
+# pygithub object
+g = Github(token)
+# get that user by username
+user = g.get_user(username)
+
+
+repoinfo = []
+
+for repo in user.get_repos():
+    if repo.name.startswith("talks") and repo.name.find('-template') == -1:
+        repo_page = f'https://poldrack.github.io/{repo.name}'
+        # make sure the talk repo has a web page
+        response = requests.get(repo_page)
+        if response.status_code != 200:
+            continue
+        releases = list(repo.get_releases())
+        repoinfo.append(
+            [
+                repo.name.replace('talks-', '').capitalize(),
+                repo.description,
+                repo.updated_at,
+                repo_page
+            ])
+
+repos_df = pd.DataFrame(
+    repoinfo, 
+    columns=[
+        "name", "description", "date", "url"]
+    ).sort_values(by='date', ascending=False)
+
+for i, row in repos_df.iterrows():
+    print(f"[{row['name']}]({row['url']}): {row['description']}")
+    print('')
+    print(f"  - [View current version of talk]({row['url']}/talk/talk.html) (last updated {row.date.strftime('%m/%d/%Y')})")
+    print('')
+
+
+```
+
+
+These talks are built using [Quarto](https://quarto.org/), based on my [talks template](https://github.com/poldrack/talks-template).
