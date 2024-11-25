@@ -1,0 +1,53 @@
+/* Navbar.css */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333333;
+    color: white;
+    padding: 0 100px;
+  }
+  
+  .logo-img {
+    width: 80px;
+    height: auto;
+    margin-right: 30px;
+  }
+
+  @font-face {
+    font-family: 'Parkinsans';
+    src: url('../public/fonts/Parkinsans-Medium.ttf') format('truetype');
+    font-style: normal;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 2em;
+    font-family: 'Parkinsans', sans-serif;
+  }
+  
+  .menu {
+    display: flex;
+    font-size: 1em;
+    align-items: center; /* Vertically center the menu items */
+    margin-left: auto;
+  }
+
+  .menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+  
+  .menu a:hover {
+    text-decoration: underline;
+  }
+  
