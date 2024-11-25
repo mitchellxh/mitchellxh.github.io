@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.307e6a5e.css",
+    "main.js": "/static/js/main.1336ab6a.js",
+    "static/js/453.e5eed8c3.chunk.js": "/static/js/453.e5eed8c3.chunk.js",
+    "static/media/Parkinsans-Medium.ttf": "/static/media/Parkinsans-Medium.6717b002a1b6af350543.ttf",
+    "index.html": "/index.html",
+    "main.307e6a5e.css.map": "/static/css/main.307e6a5e.css.map",
+    "main.1336ab6a.js.map": "/static/js/main.1336ab6a.js.map",
+    "453.e5eed8c3.chunk.js.map": "/static/js/453.e5eed8c3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.307e6a5e.css",
+    "static/js/main.1336ab6a.js"
+  ]
+}
