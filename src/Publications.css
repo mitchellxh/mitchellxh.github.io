@@ -1,0 +1,34 @@
+.publication-year {
+  font-weight: bold;
+  color: #f0e68c; /* Closer to yellow-white */
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 1.5em; /* Adjust size to match navbar */
+  font-family: 'Parkinsans', sans-serif; /* Assuming this is the navbar font */
+}
+
+.content-block {
+  font-family: 'Parkinsans', sans-serif; /* Match navbar font */
+  font-size: 1em; /* Match navbar size */
+  line-height: 1.6;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+li ul {
+  list-style-type: circle; /* White hollow bullet */
+  padding-left: 20px;
+}
+
+li ul li {
+  list-style-type: circle;
+  color: white;
+} 
