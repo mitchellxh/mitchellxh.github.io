@@ -43,9 +43,10 @@ const Navbar = () => {
           <Link to="/publications" className="menu-item">Publications</Link>
           {dropdownVisible && (
             <div className="dropdown-content">
-              <a href="https://orcid.org">ORCID</a>
-              <a href="https://www.researchgate.net">ResearchGate</a>
-              <a href="https://scholar.google.com">Google Scholar</a>
+              <a href="https://orcid.org/0000-0002-8249-5793">ORCID</a>
+              <a href="https://ask.cyberinfrastructure.org/u/mitchellxh/summary">Ask CI</a>
+              <a href="https://scholar.google.com/citations?user=eBbRfewAAAAJ&hl=en">Google Scholar</a>
+              <a href="https://www.researchgate.net/profile/Mitchell-Horn">ResearchGate</a>
             </div>
           )}
         </div>
