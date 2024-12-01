@@ -82,6 +82,7 @@ const Publications = () => {
                   <li key={index} dangerouslySetInnerHTML={{ __html: paper.replace(/Horn MJ/g, '<strong style="color: #89CFF0;">Horn MJ</strong>') }} />
                 ))}
               </ul>
+              <br />
             </li>
           ))}
         </ul>
