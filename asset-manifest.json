@@ -1,16 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.71777a48.css",
-    "main.js": "/static/js/main.c9303d9a.js",
-    "static/js/453.e5eed8c3.chunk.js": "/static/js/453.e5eed8c3.chunk.js",
-    "static/media/Parkinsans-Medium.ttf": "/static/media/Parkinsans-Medium.6717b002a1b6af350543.ttf",
+    "main.css": "/static/css/main.b8c848d5.css",
+    "main.js": "/static/js/main.50eeb50b.js",
     "index.html": "/index.html",
-    "main.71777a48.css.map": "/static/css/main.71777a48.css.map",
-    "main.c9303d9a.js.map": "/static/js/main.c9303d9a.js.map",
-    "453.e5eed8c3.chunk.js.map": "/static/js/453.e5eed8c3.chunk.js.map"
+    "main.b8c848d5.css.map": "/static/css/main.b8c848d5.css.map",
+    "main.50eeb50b.js.map": "/static/js/main.50eeb50b.js.map"
   },
   "entrypoints": [
-    "static/css/main.71777a48.css",
-    "static/js/main.c9303d9a.js"
+    "static/css/main.b8c848d5.css",
+    "static/js/main.50eeb50b.js"
   ]
 }
