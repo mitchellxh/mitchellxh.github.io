@@ -1,0 +1,108 @@
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-section {
+  background-color: #E8F5E9;
+  padding: 3rem 0;
+}
+
+.text-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.text-container p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #000;
+}
+
+.image-section {
+  background-color: #F5F5F1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.image-container {
+  max-width: 1200px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.social-links {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  transform: translateX(-2rem);
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  transition: transform 0.2s;
+  display: block;
+}
+
+a[href*="ask.cyberinfrastructure"] .social-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .text-container p {
+    font-size: 1.2rem;
+  }
+
+  .image-container {
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .social-links {
+    gap: 2rem;
+    padding: 1.5rem 0 3rem 0;
+  }
+
+  .social-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  a[href*="ask.cyberinfrastructure"] .social-icon {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Ensure content fits viewport height */
+@media (min-height: 800px) {
+  .content {
+    height: calc(100vh - 120px); /* Subtract navbar height */
+  }
+} 
