@@ -47,31 +47,33 @@
 }
 
 .social-links {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
   display: flex;
-  gap: 4rem;
-  justify-content: center;
+  gap: 1.5rem;
   align-items: center;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  transform: translateX(-2rem);
+  padding: 0;
+  z-index: 1000;
 }
 
 .social-icon {
-  width: 50px;
-  height: 50px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
-  transition: transform 0.2s;
+  transition: all 0.3s cubic-bezier(.47,1.64,.41,.8);
   display: block;
+  transform-origin: bottom;
 }
 
 a[href*="ask.cyberinfrastructure"] .social-icon {
-  width: 100px;
-  height: 100px;
+  width: 68px;
+  height: 68px;
 }
 
 .social-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.2) translateY(-10px);
+  filter: brightness(1.2);
 }
 
 @media (max-width: 768px) {
@@ -85,18 +87,19 @@ a[href*="ask.cyberinfrastructure"] .social-icon {
   }
 
   .social-links {
-    gap: 2rem;
-    padding: 1.5rem 0 3rem 0;
+    bottom: 15px;
+    left: 15px;
+    gap: 1rem;
   }
 
   .social-icon {
-    width: 56px;
-    height: 56px;
+    width: 28px;
+    height: 28px;
   }
 
   a[href*="ask.cyberinfrastructure"] .social-icon {
-    width: 100px;
-    height: 100px;
+    width: 42px;
+    height: 42px;
   }
 }
 
