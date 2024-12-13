@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #F5F5F1;
+  background-color: white;
   height: 120px;
   border-bottom: 1px solid #E5E5E5;
 }
@@ -11,12 +11,58 @@
   padding: 0 2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: all 0.4s cubic-bezier(.47,1.64,.41,.8);
+  transform-origin: center;
+  filter: grayscale(100%);
+  mix-blend-mode: multiply;
+  background-blend-mode: multiply;
+}
+
+.social-icon:hover {
+  transform: scale(1.2) rotate(5deg);
+  filter: grayscale(0%) brightness(1.2);
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+  mix-blend-mode: normal;
+}
+
+a[href*="ask.cyberinfrastructure"] .social-icon {
+  width: 68px;
+  height: 68px;
+  filter: grayscale(100%);
+  mix-blend-mode: multiply;
+  background-blend-mode: multiply;
+}
+
+a[href*="ask.cyberinfrastructure"] .social-icon:hover {
+  transform: scale(1.1) rotate(-5deg);
+  filter: grayscale(0%) brightness(1.2);
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+  mix-blend-mode: normal;
+}
+
+.nav-right {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
 }
 
 .nav-logo {
@@ -31,6 +77,32 @@
   text-decoration: none;
   display: flex;
   flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-name::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #28a745, #40c463);
+  opacity: 0;
+  transform: scaleX(0.7) scaleY(0.2);
+  transition: all 0.4s cubic-bezier(.47,1.64,.41,.8);
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.nav-name:hover {
+  color: white;
+  transform: translateY(-2px);
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-name:hover::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .nav-center {
