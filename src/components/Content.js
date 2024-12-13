@@ -4,35 +4,43 @@ import '../styles/Content.css';
 const Content = () => {
   return (
     <main className="content">
-      <section className="text-section">
-        <div className="text-container">
-          <p>I am a senior research data specialist focused on empowering researchers with advanced computing, data management, and AI-driven solutions to enhance research efficiency and innovation.</p>
-        </div>
-      </section>
+      <header className="header-section">
+        {/* Your existing navbar content */}
+      </header>
 
-      <section className="image-section">
-        <div className="image-container">
-          <img src="/Picture1.png" alt="Profile" className="profile-image" />
-        </div>
-        
-        <div className="social-links">
-          <a href="https://ask.cyberinfrastructure.org/u/mitchellxh/summary" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/askci.png" alt="AskCI" className="social-icon" />
-          </a>
-          <a href="https://www.linkedin.com/in/mitchell-horn-92a279106/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/linkedin.png" alt="LinkedIn" className="social-icon" />
-          </a>
-          <a href="https://x.com/MitchellHorn_" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/x.png" alt="Twitter" className="social-icon" />
-          </a>
-          <a href="https://github.com/mitchellxh/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/gh.png" alt="GitHub" className="social-icon" />
-          </a>
-          <a href="https://environment.yale.edu/directory/staff/mitchell-horn" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/yse.png" alt="Yale" className="social-icon" />
-          </a>
-        </div>
-      </section>
+      <div className="main-content">
+        <section className="text-section">
+          <div className="text-container">
+            <p>I am a senior research data specialist focused on empowering researchers with advanced computing, data management, and AI-driven solutions to enhance research efficiency and innovation.</p>
+          </div>
+        </section>
+
+        <section className="content-section">
+          <div className="image-container">
+            <img src="/Picture1.png" alt="Profile" className="profile-image" />
+          </div>
+          
+          <div className="iframe-container">
+            <iframe 
+              src='https://flo.uri.sh/visualisation/20745838/embed' 
+              title='Interactive or visual content' 
+              className='flourish-embed-iframe' 
+              frameBorder='0' 
+              scrolling='no' 
+              style={{
+                width: '100%', 
+                height: '800px'
+              }} 
+              sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'
+            />
+            <div className="flourish-credit">
+              <img alt='Made with Flourish' 
+                   src='https://public.flourish.studio/resources/made_with_flourish.svg' 
+                   style={{width: '105px', height: '16px', border: 'none', margin: 0}} />
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 };

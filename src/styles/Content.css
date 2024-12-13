@@ -1,12 +1,19 @@
 .content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F5F5F1;
+}
+
+.main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .text-section {
-  background-color: #E8F5E9;
-  padding: 3rem 0;
+  background-color: #F5F5F1;
+  padding: 4rem 0;
 }
 
 .text-container {
@@ -22,9 +29,8 @@
   color: #000;
 }
 
-.image-section {
+.content-section {
   background-color: #F5F5F1;
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,9 +40,10 @@
 .image-container {
   max-width: 1200px;
   width: 100%;
-  margin-bottom: 0.5rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: center;
+  margin-bottom: 4rem;
 }
 
 .profile-image {
@@ -46,66 +53,15 @@
   object-fit: contain;
 }
 
-.social-links {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 0;
-  z-index: 1000;
-}
-
-.social-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  transition: all 0.3s cubic-bezier(.47,1.64,.41,.8);
-  display: block;
-  transform-origin: bottom;
-}
-
-a[href*="ask.cyberinfrastructure"] .social-icon {
-  width: 68px;
-  height: 68px;
-}
-
-.social-icon:hover {
-  transform: scale(1.2) translateY(-10px);
-  filter: brightness(1.2);
+.iframe-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  margin-top: 2rem;
 }
 
 @media (max-width: 768px) {
   .text-container p {
     font-size: 1.2rem;
-  }
-
-  .image-container {
-    padding: 0 1rem;
-    margin-bottom: 3rem;
-  }
-
-  .social-links {
-    bottom: 15px;
-    left: 15px;
-    gap: 1rem;
-  }
-
-  .social-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  a[href*="ask.cyberinfrastructure"] .social-icon {
-    width: 42px;
-    height: 42px;
-  }
-}
-
-/* Ensure content fits viewport height */
-@media (min-height: 800px) {
-  .content {
-    height: calc(100vh - 120px); /* Subtract navbar height */
   }
 } 
