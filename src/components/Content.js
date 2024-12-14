@@ -17,7 +17,11 @@ const Content = () => {
 
         <section className="content-section">
           <div className="image-container">
-            <img src="/Picture1.png" alt="Profile" className="profile-image" />
+            <img 
+              src="/prof-1-brain.png" 
+              alt="Profile" 
+              className="profile-image" 
+            />
           </div>
           
           <div className="iframe-container">
