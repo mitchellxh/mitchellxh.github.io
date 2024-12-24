@@ -11,7 +11,7 @@ const Content = () => {
       <div className="main-content">
         <section className="text-section">
           <div className="text-container">
-            <p>I am a senior research data specialist focused on empowering researchers with advanced computing, data management, and AI-driven solutions to enhance research efficiency and innovation.</p>
+            <p>I am a senior research data analyst focused on empowering researchers with advanced computing, data management, and AI-driven solutions to enhance research efficiency and innovation.</p>
           </div>
         </section>
 
