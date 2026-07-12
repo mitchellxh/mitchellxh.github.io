@@ -6,6 +6,14 @@ All notable changes to this project.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added doc-tracking infrastructure: `NOTES.md` (doc-map), `CHANGELOG.md`, and `a docs convention`.
 
+### Redesign — career map: self-built arc diagram replaces Flourish (2026-07-12)
+- Replaced the third-party Flourish network-graph `<iframe>` in `Content.jsx` with a self-contained `CareerMap` (`src/components/CareerMap.jsx` + `src/styles/CareerMap.css`) — no external embeds, no new dependencies (vanilla React + inline SVG + CSS).
+- **Timeline-anchored arc diagram** (the antidote to the force-directed hairball): role / project / publication / foundation nodes sit on a horizontal time spine (x = year, no physics); arcs above connect the 5 recurring skill threads that carry across eras — Python pipelines, ML segmentation→LLM/RAG, GPU/CUDA, imaging data, teaching/enablement. Hover or focus a role (or a thread chip) highlights its arcs + endpoints and fades the rest; a grep-style chip filter isolates a thread. Second tab: a Skill × Era contribution-graph matrix (sequential blue ramp) as a zoom-out.
+- Thread palette taken from the validated dataviz categorical set and checked in both themes with `validate_palette.js` (floor-band CVD, mitigated by labelled chips + hover isolation + distinct per-thread arc tiers + a `forced-colors`/print dash fallback).
+- Accessible: SVG geometry is `aria-hidden`; nodes are real focusable `<button>`s with full `aria-label`s; a visually-hidden ordered summary lists every role + thread; honors `prefers-reduced-motion`; responsive (spine scrolls horizontally under 680px via `overflow-x`).
+- Content grounded in the CV: 750+ trained · 825+ papers · $3.1M+ grants · 12 publications · NAIRR · 7T MRI · 10–40× GPU speedups · 88% segmentation sensitivity.
+- Reuses `tokens.css` + the shared monospace stack; light and dark both verified by screenshot.
+
 ### Redesign — Phase 1: Vite cutover + dead-code purge (2026-07-11)
 - Migrated build tooling from Create React App (`react-scripts`) to **Vite 8** (`@vitejs/plugin-react` 6). Requires Node ≥20.19.
 - Entry moved to root `index.html` + `src/main.jsx`; removed inert `HashRouter` (zero routes existed). Renamed JSX files `.js` → `.jsx` (Vite 8 Oxc transformer requirement).

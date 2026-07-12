@@ -1,0 +1,356 @@
+/* CareerMap — timeline-anchored arc diagram. Inline SVG geometry + HTML nodes.
+   Colours come from the validated dataviz categorical palette (both modes
+   selected, not auto-flipped). Everything else rides the shared design tokens. */
+
+.career-map {
+  /* thread palette — light (brand default) */
+  --t-python: #2a78d6;
+  --t-ml: #008300;
+  --t-gpu: #eb6834;
+  --t-imaging: #1baf7a;
+  --t-teaching: #eda100;
+
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  color: var(--fg);
+  font-family: var(--mono);
+}
+
+/* dark — OS default, then explicit-choice overrides (mirrors tokens.css) */
+@media (prefers-color-scheme: dark) {
+  .career-map {
+    --t-python: #3987e5;
+    --t-ml: #008300;
+    --t-gpu: #d95926;
+    --t-imaging: #199e70;
+    --t-teaching: #c98500;
+  }
+}
+:root[data-theme='light'] .career-map {
+  --t-python: #2a78d6; --t-ml: #008300; --t-gpu: #eb6834; --t-imaging: #1baf7a; --t-teaching: #eda100;
+}
+:root[data-theme='dark'] .career-map {
+  --t-python: #3987e5; --t-ml: #008300; --t-gpu: #d95926; --t-imaging: #199e70; --t-teaching: #c98500;
+}
+
+/* map every threaded element to a single --tc so marks read `var(--tc)` */
+.career-map [data-thread='python'] { --tc: var(--t-python); }
+.career-map [data-thread='ml'] { --tc: var(--t-ml); }
+.career-map [data-thread='gpu'] { --tc: var(--t-gpu); }
+.career-map [data-thread='imaging'] { --tc: var(--t-imaging); }
+.career-map [data-thread='teaching'] { --tc: var(--t-teaching); }
+
+/* ── header ─────────────────────────────────────────────────────────────── */
+.cm-eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.cm-title {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem;
+}
+.cm-sub {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 62ch;
+  margin: 0 0 1.4rem;
+}
+.cm-sub em { color: var(--fg); font-style: normal; border-bottom: 1px dotted var(--border); }
+
+.cm-metrics {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+.cm-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 190px;
+  flex: 1 1 190px;
+  font-size: 0.82rem;
+}
+.cm-metric-k { color: var(--muted); white-space: nowrap; }
+.cm-metric-dots { flex: 1; border-bottom: 1px dotted var(--border); transform: translateY(-3px); }
+.cm-metric-v { color: var(--fg); font-weight: 600; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+
+/* ── tabs ───────────────────────────────────────────────────────────────── */
+.cm-tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  margin-bottom: 1.3rem;
+}
+.cm-tab {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.cm-tab:hover { color: var(--fg); background: var(--surface-hover); }
+.cm-tab.is-on { color: var(--fg); background: var(--surface-hover); box-shadow: inset 0 0 0 1px var(--border); }
+
+/* ── filter (grep) ──────────────────────────────────────────────────────── */
+.cm-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.7rem;
+  margin-bottom: 1rem;
+}
+.cm-prompt { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.cm-prompt::after { content: ''; }
+.cm-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+.cm-chip:hover { border-color: var(--tc, var(--muted)); }
+.cm-chip.is-on {
+  border-color: var(--tc);
+  box-shadow: inset 0 0 0 1px var(--tc);
+  background: color-mix(in srgb, var(--tc) 10%, var(--surface));
+}
+.cm-chip--clear { color: var(--muted); }
+.cm-chip--clear:disabled { opacity: 0.4; cursor: default; }
+.cm-swatch {
+  width: 11px; height: 11px; border-radius: 3px;
+  background: var(--tc); flex: none;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tc) 40%, transparent);
+}
+.cm-count { font-size: 0.78rem; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* ── plot ───────────────────────────────────────────────────────────────── */
+.cm-plot-scroll { position: relative; overflow-x: auto; overflow-y: hidden; padding-bottom: 0.4rem; }
+.cm-scrollhint {
+  display: none;
+  position: absolute; top: 0; right: 0;
+  font-size: 0.7rem; color: var(--muted);
+  background: linear-gradient(90deg, transparent, var(--bg) 40%);
+  padding: 0.2rem 0.2rem 0.2rem 1.4rem;
+  pointer-events: none; z-index: 2;
+}
+.cm-plot {
+  position: relative;
+  width: 100%;
+  min-width: 680px;
+  aspect-ratio: var(--vb-w) / var(--vb-h);
+}
+.cm-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.cm-band { fill: var(--fg); opacity: 0.022; }
+.cm-band[data-era='hpc'] { opacity: 0.045; }
+.cm-grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 5; opacity: 0.7; }
+.cm-year { fill: var(--muted); font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
+.cm-spine { stroke: var(--fg); stroke-width: 2; opacity: 0.55; }
+.cm-era-label { font-family: var(--mono); }
+.cm-era-name { fill: var(--muted); font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; }
+
+/* arcs */
+.cm-arc {
+  fill: none;
+  stroke: var(--tc);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.85;
+  transition: opacity 0.22s ease, stroke-width 0.22s ease;
+}
+.cm-arc.is-emph { opacity: 1; stroke-width: 4; }
+.cm-arc.is-dim { opacity: 0.13; }
+.cm-arc.is-hide { opacity: 0.04; }
+
+/* ── nodes (HTML buttons over the SVG) ──────────────────────────────────── */
+.cm-nodes { position: absolute; inset: 0; }
+.cm-node {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 132px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  color: var(--fg);
+  transition: opacity 0.2s ease;
+}
+.cm-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg);
+  border: 2.5px solid var(--accent);
+  box-sizing: border-box;
+  flex: none;
+  transform: translateY(-50%);
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.cm-node.type-role .cm-dot { width: 16px; height: 16px; }
+.cm-node.type-foundation .cm-dot { background: var(--accent); }
+.cm-node.type-pub .cm-dot { border-style: double; border-width: 4px; }
+.cm-node.type-project .cm-dot { width: 12px; height: 12px; border-color: var(--muted); }
+
+.cm-leader {
+  width: 1px;
+  flex: 1;
+  background: var(--border);
+  margin-top: -6px;
+  transition: background-color 0.16s ease;
+}
+.cm-node-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1px;
+  padding-top: 4px;
+}
+.cm-node-short { font-size: 0.78rem; font-weight: 600; line-height: 1.15; white-space: nowrap; }
+.cm-node-metric { font-size: 0.66rem; color: var(--muted); line-height: 1.1; white-space: nowrap; }
+
+/* node states */
+.cm-node.is-dim { opacity: 0.32; }
+.cm-node.is-emph .cm-dot,
+.cm-node.is-active .cm-dot { border-color: var(--fg); box-shadow: 0 0 0 4px var(--surface-hover); }
+.cm-node.is-active .cm-dot { background: var(--accent); border-color: var(--accent); }
+.cm-node:hover .cm-dot { transform: translateY(-50%) scale(1.18); }
+.cm-node:hover .cm-node-short { color: var(--accent); }
+.cm-node.is-active .cm-leader,
+.cm-node.is-emph .cm-leader { background: var(--muted); }
+.cm-node:focus-visible { outline: none; }
+.cm-node:focus-visible .cm-dot {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ── detail card ────────────────────────────────────────────────────────── */
+.cm-card {
+  margin-top: 1.2rem;
+  min-height: 6.2rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 0.9rem 1.1rem;
+}
+.cm-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+.cm-card-tag--muted { color: var(--muted); }
+.cm-card-title { font-size: 1rem; font-weight: 600; margin: 0 0 0.15rem; }
+.cm-card-org { font-size: 0.8rem; color: var(--muted); margin: 0 0 0.5rem; }
+.cm-card-body { font-size: 0.9rem; line-height: 1.55; color: var(--fg); margin: 0; max-width: 78ch; }
+.cm-card-body strong { color: var(--accent); font-weight: 600; }
+.cm-card-threads { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.7rem 0 0; }
+.cm-card-threads-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.cm-mini-tag { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; color: var(--fg); }
+
+/* ── skill × era matrix ─────────────────────────────────────────────────── */
+.cm-matrix-caption { font-size: 0.85rem; color: var(--muted); margin: 0 0 1rem; }
+.cm-matrix-scroll { overflow-x: auto; }
+.cm-matrix { border-collapse: separate; border-spacing: 4px; font-family: var(--mono); }
+.cm-mx-corner { width: 12rem; }
+.cm-mx-col { padding: 0 0 0.5rem; text-align: center; vertical-align: bottom; }
+.cm-mx-col-label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--fg); }
+.cm-mx-col-years { display: block; font-size: 0.66rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cm-mx-row {
+  text-align: right;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--fg);
+  padding-right: 0.7rem;
+  white-space: nowrap;
+}
+.cm-mx-cell { padding: 0; }
+.cm-mx-dot {
+  display: block;
+  width: 30px; height: 26px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--accent) 100%, transparent);
+  border: 1px solid transparent;
+}
+.cm-mx-cell .cm-mx-dot { position: relative; cursor: default; }
+.cm-mx-dot.lvl-0 { background: transparent; border-color: var(--border); }
+.cm-mx-dot.lvl-1 { background: color-mix(in srgb, var(--accent) 24%, transparent); }
+.cm-mx-dot.lvl-2 { background: color-mix(in srgb, var(--accent) 46%, transparent); }
+.cm-mx-dot.lvl-3 { background: color-mix(in srgb, var(--accent) 70%, transparent); }
+.cm-mx-dot.lvl-4 { background: var(--accent); }
+.cm-mx-cell .cm-mx-dot { width: 100%; min-width: 30px; }
+
+.cm-mx-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0.9rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.cm-mx-legend .cm-mx-dot { width: 18px; height: 16px; display: inline-block; }
+.cm-mx-legend span:first-child { margin-right: 4px; }
+.cm-mx-legend span:last-child { margin-left: 4px; }
+
+/* ── responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .career-map { padding: 0 1.1rem; }
+  .cm-scrollhint { display: block; }
+  .cm-count { margin-left: 0; }
+  .cm-card { min-height: 7.5rem; }
+}
+
+/* ── reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cm-arc, .cm-node, .cm-dot, .cm-tab, .cm-chip, .cm-leader { transition: none; }
+  .cm-node:hover .cm-dot { transform: translateY(-50%); }
+}
+
+/* ── forced-colors / print: dashes carry thread identity without colour ──── */
+@media (forced-colors: active), print {
+  .cm-arc { opacity: 1 !important; stroke-width: 2; }
+  .cm-arc[data-thread='python'] { stroke-dasharray: none; }
+  .cm-arc[data-thread='ml'] { stroke-dasharray: 9 6; }
+  .cm-arc[data-thread='gpu'] { stroke-dasharray: 2 5; }
+  .cm-arc[data-thread='imaging'] { stroke-dasharray: 12 5 2 5; }
+  .cm-arc[data-thread='teaching'] { stroke-dasharray: 16 6; }
+}

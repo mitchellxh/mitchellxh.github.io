@@ -1,5 +1,6 @@
 import React from 'react';
 import TerminalBio from './TerminalBio';
+import CareerMap from './CareerMap';
 import '../styles/Content.css';
 
 const Content = () => {
@@ -21,25 +22,7 @@ const Content = () => {
             />
           </div>
           
-          <div className="iframe-container">
-            <iframe 
-              src='https://flo.uri.sh/visualisation/20745838/embed' 
-              title='Interactive or visual content' 
-              className='flourish-embed-iframe' 
-              frameBorder='0' 
-              scrolling='no' 
-              style={{
-                width: '100%', 
-                height: '800px'
-              }} 
-              sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'
-            />
-            <div className="flourish-credit">
-              <img alt='Made with Flourish' 
-                   src='https://public.flourish.studio/resources/made_with_flourish.svg' 
-                   style={{width: '105px', height: '16px', border: 'none', margin: 0}} />
-            </div>
-          </div>
+          <CareerMap />
         </section>
       </div>
     </main>
