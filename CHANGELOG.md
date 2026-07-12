@@ -6,6 +6,15 @@ All notable changes to this project.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added doc-tracking infrastructure: `NOTES.md` (doc-map), `CHANGELOG.md`, and `a docs convention`.
 
+### Redesign — personal logo + earthy color system (2026-07-12)
+- New self-built logo: a `{ HRF }` mark — the hemodynamic-response signal wrapped in data braces — in olive/wine/seafoam (`public/logo.svg`), live in the navbar with a full favicon set (`favicon.svg` / `favicon.ico` / `apple-touch-icon.png`). Retires the green-leaf `Logo1.png`.
+- Color system: `--accent` is mode-adaptive — wine (`#8a3f5c`) in light, olive (`#b0b06a`) in dark, each the most legible on its ground; added `--accent-2` (seafoam) for hover / active. All three hues are drawn from the logo. The logo itself stays consistent across themes (a brand anchor).
+- Career-map threads recolored to an earthy categorical palette (plum · sage · rust · seafoam · ochre) — distinct by hue, muted to match.
+- Career-map polish: pinned node card now dismisses on outside-click / Escape; metric ledger regrouped so each value hugs its own label (publications → `12+`); title → "10+ years, 1 data story"; sub reworded, unwrapped, and emphasizing the two encoded axes (`when` · `skill`).
+- Terminal prompt → `mitch@BU-CDS` (current affiliation).
+- Perf: profile photo resized + converted to WebP (5.1 MB → 208 KB); removed the PNG.
+- Follow-up: PWA icons (`logo192/512.png`) + `manifest.json` still show the old mark — regenerate before a PWA-oriented deploy.
+
 ### Redesign — homepage refinement: nav/footer restructure, leaner career map (2026-07-12)
 - Navbar pared to identity + current affiliations (BU · Yale, right-justified); LinkedIn, GitHub, Publications, and Resources moved into the footer. Publications dropdown removed (now flat links); Navbar is a static component again.
 - New `Footer` (`src/components/Footer.jsx` + `src/styles/Footer.css`): the page's link directory and an intentional bottom edge — identity, copyright, and the moved links (LinkedIn/GitHub icons, ORCID · Google Scholar · ResearchGate, Resources). Reuses the light/dark icon swap for GitHub.

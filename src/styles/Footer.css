@@ -90,7 +90,7 @@
   transition: color 0.16s ease;
 }
 .footer-linkrow a:hover {
-  color: var(--accent);
+  color: var(--accent-2);
 }
 
 @media (max-width: 600px) {

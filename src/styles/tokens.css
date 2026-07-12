@@ -13,8 +13,9 @@
   --fg: #111111;           /* body text */
   --muted: #555555;        /* secondary text */
   --border: #E5E5E5;
-  --accent: #0066cc;       /* the single accent — replaces the green gradient */
-  --focus-ring: #0066cc;   /* >= 3:1 on --bg (WCAG 1.4.11) */
+  --accent: #8a3f5c;       /* primary accent — wine (light) / olive (dark), from the logo */
+  --focus-ring: #8a3f5c;   /* matches --accent; >= 3:1 on --bg (WCAG 1.4.11) */
+  --accent-2: #2f7a67;     /* secondary — seafoam, for hover / active */
   --surface-hover: rgba(0, 0, 0, 0.05);
 
   /* type scale */
@@ -39,8 +40,9 @@
     --fg: #e8e8e8;
     --muted: #a0a0a0;
     --border: #2a2a2a;
-    --accent: #8ab4f8;
-    --focus-ring: #8ab4f8;
+    --accent: #b0b06a;
+    --focus-ring: #b0b06a;
+    --accent-2: #8fcbb8;
     --surface-hover: rgba(255, 255, 255, 0.06);
   }
 }
@@ -53,8 +55,9 @@
   --fg: #111111;
   --muted: #555555;
   --border: #E5E5E5;
-  --accent: #0066cc;
-  --focus-ring: #0066cc;
+  --accent: #8a3f5c;
+  --focus-ring: #8a3f5c;
+  --accent-2: #2f7a67;
   --surface-hover: rgba(0, 0, 0, 0.05);
 }
 :root[data-theme="dark"] {
@@ -64,8 +67,9 @@
   --fg: #e8e8e8;
   --muted: #a0a0a0;
   --border: #2a2a2a;
-  --accent: #8ab4f8;
-  --focus-ring: #8ab4f8;
+  --accent: #b0b06a;
+  --focus-ring: #b0b06a;
+  --accent-2: #8fcbb8;
   --surface-hover: rgba(255, 255, 255, 0.06);
 }
 
@@ -76,6 +80,7 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 a { color: var(--accent); }
+a:hover { color: var(--accent-2); }
 
 /* Visible focus for keyboard users only (never a bare outline: none) */
 :focus-visible {

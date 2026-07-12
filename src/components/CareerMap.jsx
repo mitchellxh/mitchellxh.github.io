@@ -1,4 +1,4 @@
-import { useMemo, useState, useId } from 'react';
+import { useMemo, useState, useId, useRef, useEffect } from 'react';
 import '../styles/CareerMap.css';
 
 /*
@@ -83,7 +83,7 @@ const NODES = [
 const METRICS = [
   ['researchers_trained', '750+'],
   ['grants_secured', '$3.1M+'],
-  ['publications', '12'],
+  ['publications', '12+'],
 ];
 
 // ── geometry (SVG user units; the plot scales to fit) ────────────────────────
@@ -127,6 +127,7 @@ export default function CareerMap() {
   const [hoverNode, setHoverNode] = useState(null);      // transient
   const [pinNode, setPinNode] = useState(null);          // click / focus
   const uid = useId();
+  const plotRef = useRef(null);
 
   const activeNodeId = hoverNode ?? pinNode;
   const activeNode = activeNodeId ? NODES.find((n) => n.id === activeNodeId) : null;
@@ -161,6 +162,23 @@ export default function CareerMap() {
 
   const clickNode = (id) => setPinNode((p) => (p === id ? null : id));
 
+  // dismiss a pinned node: click anywhere outside the plot, or press Escape
+  useEffect(() => {
+    if (!pinNode) return undefined;
+    const onDown = (e) => {
+      if (plotRef.current && !plotRef.current.contains(e.target)) setPinNode(null);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') setPinNode(null);
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [pinNode]);
+
   // detail-card content: thread preview > active node (idle → no card; the plot stands alone)
   let card;
   if (hoverThread) {
@@ -194,11 +212,11 @@ export default function CareerMap() {
   return (
     <section className="career-map" id="career" aria-labelledby={`${uid}-h`}>
       <header className="cm-head">
-        <h2 id={`${uid}-h`} className="cm-title">10+ years, 1 data scientist</h2>
-        <p className="cm-sub">Every node sits at <em>when</em> it happened. The arcs connect skills that carried forward.</p>
+        <h2 id={`${uid}-h`} className="cm-title">10+ years, 1 data story</h2>
+        <p className="cm-sub">Every node sits at <em>when</em> it happened; each arc traces a <em>skill</em> that carried forward.</p>
         <ul className="cm-metrics" aria-label="Career metrics">
           {METRICS.map(([k, v]) => (
-            <li key={k} className="cm-metric"><span className="cm-metric-k">{k}</span><span className="cm-metric-dots" aria-hidden="true" /><span className="cm-metric-v">{v}</span></li>
+            <li key={k} className="cm-metric"><span className="cm-metric-k">{k}</span><span className="cm-metric-v">{v}</span></li>
           ))}
         </ul>
       </header>
@@ -243,7 +261,7 @@ export default function CareerMap() {
         </div>
       </div>
 
-      <div className="cm-plot-scroll">
+      <div className="cm-plot-scroll" ref={plotRef}>
         <div className="cm-scrollhint" aria-hidden="true">scroll →</div>
         <div className="cm-plot" style={{ '--vb-w': W, '--vb-h': H }}>
           <svg className="cm-svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">

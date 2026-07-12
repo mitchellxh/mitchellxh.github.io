@@ -16,7 +16,7 @@ const Content = () => {
         <section className="content-section">
           <div className="image-container">
             <img 
-              src="/prof-1-brain.png" 
+              src="/prof-1-brain.webp"
               alt="Profile" 
               className="profile-image" 
             />
