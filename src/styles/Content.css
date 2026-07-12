@@ -30,12 +30,16 @@
   text-align: left;
 }
 
+/* plot panel — mirrors the hero: fills the viewport, content vertically centered */
 .content-section {
   background-color: var(--surface);
+  box-sizing: border-box;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(3rem, 8vh, 6rem) 0;
+  justify-content: center;
+  padding: clamp(3rem, 6vh, 5rem) 0;
 }
 
 /* whoami panel — terminal bio and portrait overlap-staggered in a grid so the

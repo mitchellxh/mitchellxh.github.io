@@ -284,12 +284,6 @@ export default function CareerMap() {
             {ARCS.map((a) => (
               <path key={a.key} className={`cm-arc is-${threadState(a.thread)}`} data-thread={a.thread} d={a.d} />
             ))}
-            {/* era axis labels (bottom) — name only; the year range lives on the top axis */}
-            {ERAS.map((e) => (
-              <text key={e.id} className="cm-era-label" x={(xOf(e.start) + xOf(e.end)) / 2} y={H - 12} textAnchor="middle">
-                <tspan className="cm-era-name">{e.label}</tspan>
-              </text>
-            ))}
           </svg>
 
           {/* interactive nodes — real focusable buttons over the SVG */}
