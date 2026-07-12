@@ -22,45 +22,6 @@
   flex: 1;
 }
 
-.social-links {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
-  flex: 2;
-}
-
-.social-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  transition: all 0.3s cubic-bezier(.37,1.14,.26,1.24);
-  transform-origin: center;
-}
-
-.social-icon:hover {
-  transform: translateY(-4px) scale(1.25);
-}
-
-/* Light/dark logo swap (e.g. GitHub) — honors the OS theme AND the manual toggle */
-.social-icon--dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .social-icon--light { display: none; }
-  :root:not([data-theme="light"]) .social-icon--dark { display: inline-block; }
-}
-:root[data-theme="light"] .social-icon--light { display: inline-block; }
-:root[data-theme="light"] .social-icon--dark { display: none; }
-:root[data-theme="dark"] .social-icon--light { display: none; }
-:root[data-theme="dark"] .social-icon--dark { display: inline-block; }
-
-.nav-right {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 1;
-}
-
 .nav-logo {
   height: 80px;
   width: auto;
@@ -82,50 +43,23 @@
   transform: translateY(-2px);
 }
 
-.nav-center {
-  margin-left: auto;
+/* affiliation marks (BU · Yale) — pushed right by nav-left's flex-grow */
+.social-links {
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
-.nav-item {
-  color: var(--fg);
-  text-decoration: none;
-  font-size: var(--fs-nav);
-  cursor: pointer;
+.social-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: all 0.3s cubic-bezier(.37,1.14,.26,1.24);
+  transform-origin: center;
 }
 
-.nav-item:hover {
-  color: var(--accent);
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.5rem 0;
-  min-width: 200px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 0.5rem 1rem;
-  color: var(--fg);
-  text-decoration: none;
-}
-
-.dropdown-menu a:hover {
-  color: var(--accent);
-  background: var(--surface-hover);
+.social-icon:hover {
+  transform: translateY(-4px) scale(1.25);
 }
 
 @media (max-width: 768px) {
@@ -139,13 +73,9 @@
     gap: 1rem;
   }
 
-  .nav-left, .social-links, .nav-right {
+  .nav-left,
+  .social-links {
     width: 100%;
     justify-content: center;
-  }
-
-  .social-links {
-    flex-wrap: wrap;
-    padding: 0.5rem 0;
   }
 }

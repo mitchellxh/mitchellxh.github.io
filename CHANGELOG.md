@@ -6,6 +6,13 @@ All notable changes to this project.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added doc-tracking infrastructure: `NOTES.md` (doc-map), `CHANGELOG.md`, and `a docs convention`.
 
+### Redesign — homepage refinement: nav/footer restructure, leaner career map (2026-07-12)
+- Navbar pared to identity + current affiliations (BU · Yale, right-justified); LinkedIn, GitHub, Publications, and Resources moved into the footer. Publications dropdown removed (now flat links); Navbar is a static component again.
+- New `Footer` (`src/components/Footer.jsx` + `src/styles/Footer.css`): the page's link directory and an intentional bottom edge — identity, copyright, and the moved links (LinkedIn/GitHub icons, ORCID · Google Scholar · ResearchGate, Resources). Reuses the light/dark icon swap for GitHub.
+- CareerMap trimmed to the single timeline view: removed the Skill × Era matrix + its toggle, the decorative `grep` prompt, and the thread counter; dropped the `// career map` eyebrow; tightened the heading ("10+ years, 1 data scientist") and sub; pared the metric ledger to three self-evident numbers (researchers trained · grants · publications).
+- Removed `min-height: 100vh` from `.content`, which pushed the footer below the fold and left a void on tall screens.
+- LinkedIn icon: cropped the trademark ® and squared the asset to match the other marks.
+
 ### Redesign — career map: self-built arc diagram replaces Flourish (2026-07-12)
 - Replaced the third-party Flourish network-graph `<iframe>` in `Content.jsx` with a self-contained `CareerMap` (`src/components/CareerMap.jsx` + `src/styles/CareerMap.css`) — no external embeds, no new dependencies (vanilla React + inline SVG + CSS).
 - **Timeline-anchored arc diagram** (the antidote to the force-directed hairball): role / project / publication / foundation nodes sit on a horizontal time spine (x = year, no physics); arcs above connect the 5 recurring skill threads that carry across eras — Python pipelines, ML segmentation→LLM/RAG, GPU/CUDA, imaging data, teaching/enablement. Hover or focus a role (or a thread chip) highlights its arcs + endpoints and fades the rest; a grep-style chip filter isolates a thread. Second tab: a Skill × Era contribution-graph matrix (sequential blue ramp) as a zoom-out.

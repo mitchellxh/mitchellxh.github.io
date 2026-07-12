@@ -1,0 +1,100 @@
+/* Footer — the page's link directory + quiet bottom edge, on the shared tokens.
+   Monospace to stay in the site's terminal register; muted and calm. */
+
+.site-footer {
+  margin-top: 5rem;                 /* calm separation; sits right after the content */
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.2rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.6rem 2.5rem;
+}
+
+/* identity block (left) */
+.footer-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.footer-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.footer-role {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.footer-copy {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* links (right): social icons above a row of text links, right-aligned */
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+}
+.footer-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  transition: transform 0.2s cubic-bezier(.37,1.14,.26,1.24);
+}
+.footer-social a:hover .footer-icon {
+  transform: translateY(-3px) scale(1.15);
+}
+
+/* GitHub light/dark swap — honors the OS theme AND the manual toggle */
+.footer-icon--dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .footer-icon--light { display: none; }
+  :root:not([data-theme="light"]) .footer-icon--dark { display: inline-block; }
+}
+:root[data-theme="light"] .footer-icon--light { display: inline-block; }
+:root[data-theme="light"] .footer-icon--dark { display: none; }
+:root[data-theme="dark"] .footer-icon--light { display: none; }
+:root[data-theme="dark"] .footer-icon--dark { display: inline-block; }
+
+.footer-linkrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4rem 1.3rem;
+}
+.footer-linkrow a {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+.footer-linkrow a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .footer-inner { padding: 1.8rem 1.1rem; gap: 1.4rem; }
+  .footer-nav { align-items: flex-start; }
+  .footer-linkrow { justify-content: flex-start; }
+}

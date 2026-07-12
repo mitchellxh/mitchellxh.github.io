@@ -11,8 +11,7 @@ import '../styles/CareerMap.css';
  * these are not four disconnected jobs but skills that arc into the AI work.
  *
  * Hover / focus a role or a thread chip -> its arcs + endpoints highlight and
- * the rest fade. Chips filter to isolate a thread. A second tab shows the same
- * substance as a Skill x Era matrix (contribution-graph aesthetic).
+ * the rest fade. Chips filter to isolate a thread.
  *
  * Hand-rolled inline SVG (decorative geometry, aria-hidden) + an HTML overlay of
  * real, focusable, labelled <button> nodes + a visually-hidden semantic summary,
@@ -83,30 +82,8 @@ const NODES = [
 
 const METRICS = [
   ['researchers_trained', '750+'],
-  ['papers_indexed', '825+'],
   ['grants_secured', '$3.1M+'],
   ['publications', '12'],
-  ['award', 'NAIRR'],
-];
-
-// ── Skill × Era matrix (contribution-graph aesthetic) ────────────────────────
-const MATRIX_COLS = [
-  { id: 'biomed', label: 'Biomed', years: '2016' },
-  { id: 'neuro', label: 'Neuro', years: '16–22' },
-  { id: 'hpc', label: 'HPC', years: '22–24' },
-  { id: 'ai', label: 'AI', years: '24–now' },
-];
-// intensity 0..4; note surfaces the concrete fact for that cell.
-const MATRIX_ROWS = [
-  { label: 'Imaging / MRI', cells: [[1, 'anatomy & signals'], [4, '7T MRI analysis pipelines'], [1, 'legacy imaging support'], [0, '']] },
-  { label: 'ML / computer vision', cells: [[0, ''], [4, '3D CNN — 88% sensitivity'], [2, 'GPU model training'], [3, 'pybioclip · DeepForest species ID']] },
-  { label: 'LLM / RAG', cells: [[0, ''], [0, ''], [0, ''], [4, 'EPR AI — RAG over 825+ papers']] },
-  { label: 'GPU / CUDA', cells: [[0, ''], [2, 'CNN training on GPU'], [4, '25+ workflows → GPU, 10–40×'], [3, 'GPU utilization / energy portal']] },
-  { label: 'HPC / SLURM', cells: [[0, ''], [1, 'cluster analysis jobs'], [4, 'SLURM · Open OnDemand · Lmod/Spack'], [3, '$3.1M federated-HPC benchmarking']] },
-  { label: 'Containers', cells: [[0, ''], [1, 'reproducible pipelines'], [4, 'Docker / Singularity for 200+'], [2, 'containerized AI services']] },
-  { label: 'Cloud (GCP / AWS)', cells: [[0, ''], [0, ''], [1, 'hybrid HPC + cloud'], [4, 'Flask on GCP · Vertex · BigQuery · S3']] },
-  { label: 'Teaching / enablement', cells: [[0, ''], [1, 'lab onboarding'], [4, '15+ workshops · 500+ trained'], [3, 'YSE Research Computing Series']] },
-  { label: 'Python / data eng', cells: [[1, 'analysis scripts'], [3, 'feature-extraction pipelines'], [3, 'workflow automation'], [4, 'DVC pipelines · 825+ refs indexed']] },
 ];
 
 // ── geometry (SVG user units; the plot scales to fit) ────────────────────────
@@ -145,7 +122,6 @@ const nodeButtonHeightPct = (row) => (((TICK_GAP + (row + 1) * ROW_H) / H) * 100
 const eraById = Object.fromEntries(ERAS.map((e) => [e.id, e]));
 
 export default function CareerMap() {
-  const [view, setView] = useState('map');           // 'map' | 'matrix'
   const [filter, setFilter] = useState(() => new Set()); // pinned threads (chips)
   const [hoverThread, setHoverThread] = useState(null);  // chip preview
   const [hoverNode, setHoverNode] = useState(null);      // transient
@@ -185,7 +161,7 @@ export default function CareerMap() {
 
   const clickNode = (id) => setPinNode((p) => (p === id ? null : id));
 
-  // detail-card content: thread preview > active node > default thesis
+  // detail-card content: thread preview > active node (idle → no card; the plot stands alone)
   let card;
   if (hoverThread) {
     const t = THREAD_BY_ID[hoverThread];
@@ -213,38 +189,19 @@ export default function CareerMap() {
         )}
       </>
     );
-  } else {
-    card = (
-      <>
-        <span className="cm-card-tag cm-card-tag--muted">the through-line</span>
-        <p className="cm-card-body">
-          Four roles, one continuous arc: <strong>biology → computation → infrastructure → AI</strong>. The arcs above the line trace skills that carry across jobs — a segmentation CNN becomes RAG; imaging pipelines become data engineering. Hover a role or a thread to trace it; filter to isolate one.
-        </p>
-      </>
-    );
   }
 
   return (
     <section className="career-map" id="career" aria-labelledby={`${uid}-h`}>
       <header className="cm-head">
-        <p className="cm-eyebrow">// career map</p>
-        <h2 id={`${uid}-h`} className="cm-title">Ten years, one through-line</h2>
-        <p className="cm-sub">Every node sits at <em>when</em> it happened; the arcs above connect the skills that carry forward. Not four disconnected jobs — one compounding arc from medical imaging to AI.</p>
+        <h2 id={`${uid}-h`} className="cm-title">10+ years, 1 data scientist</h2>
+        <p className="cm-sub">Every node sits at <em>when</em> it happened. The arcs connect skills that carried forward.</p>
         <ul className="cm-metrics" aria-label="Career metrics">
           {METRICS.map(([k, v]) => (
             <li key={k} className="cm-metric"><span className="cm-metric-k">{k}</span><span className="cm-metric-dots" aria-hidden="true" /><span className="cm-metric-v">{v}</span></li>
           ))}
         </ul>
       </header>
-
-      <div className="cm-tabs" role="tablist" aria-label="Career map view">
-        <button role="tab" aria-selected={view === 'map'} className={`cm-tab ${view === 'map' ? 'is-on' : ''}`} onClick={() => setView('map')}>
-          timeline map
-        </button>
-        <button role="tab" aria-selected={view === 'matrix'} className={`cm-tab ${view === 'matrix' ? 'is-on' : ''}`} onClick={() => setView('matrix')}>
-          skill × era
-        </button>
-      </div>
 
       {/* screen-reader summary — the graph's meaning as real, ordered text */}
       <div className="visually-hidden">
@@ -258,136 +215,92 @@ export default function CareerMap() {
         <ul>{THREADS.map((t) => <li key={t.id}>{t.label}: {t.desc}</li>)}</ul>
       </div>
 
-      {view === 'map' && (
-        <>
-          {/* thread filter — a functional grep, not a costume */}
-          <div className="cm-filter">
-            <span className="cm-prompt" aria-hidden="true">mitch@horn:~$ grep</span>
-            <div className="cm-chips" role="group" aria-label="Filter career map by thread">
-              {THREADS.map((t) => {
-                const on = filter.has(t.id);
-                return (
-                  <button
-                    key={t.id}
-                    className={`cm-chip ${on ? 'is-on' : ''}`}
-                    data-thread={t.id}
-                    aria-pressed={on}
-                    onMouseEnter={() => setHoverThread(t.id)}
-                    onMouseLeave={() => setHoverThread(null)}
-                    onFocus={() => setHoverThread(t.id)}
-                    onBlur={() => setHoverThread(null)}
-                    onClick={() => toggleFilter(t.id)}
-                  >
-                    <span className="cm-swatch" data-thread={t.id} aria-hidden="true" />
-                    {t.label}
-                  </button>
-                );
-              })}
-              <button className={`cm-chip cm-chip--clear ${filter.size === 0 ? 'is-off' : ''}`} onClick={() => setFilter(new Set())} disabled={filter.size === 0}>
-                clear
+      {/* thread filter — clickable chips isolate a skill thread */}
+      <div className="cm-filter">
+        <div className="cm-chips" role="group" aria-label="Filter career map by thread">
+          {THREADS.map((t) => {
+            const on = filter.has(t.id);
+            return (
+              <button
+                key={t.id}
+                className={`cm-chip ${on ? 'is-on' : ''}`}
+                data-thread={t.id}
+                aria-pressed={on}
+                onMouseEnter={() => setHoverThread(t.id)}
+                onMouseLeave={() => setHoverThread(null)}
+                onFocus={() => setHoverThread(t.id)}
+                onBlur={() => setHoverThread(null)}
+                onClick={() => toggleFilter(t.id)}
+              >
+                <span className="cm-swatch" data-thread={t.id} aria-hidden="true" />
+                {t.label}
               </button>
-            </div>
-            <span className="cm-count" aria-live="polite">{filter.size === 0 ? '# 5 threads' : `# ${filter.size} isolated`}</span>
-          </div>
+            );
+          })}
+          <button className={`cm-chip cm-chip--clear ${filter.size === 0 ? 'is-off' : ''}`} onClick={() => setFilter(new Set())} disabled={filter.size === 0}>
+            clear
+          </button>
+        </div>
+      </div>
 
-          <div className="cm-plot-scroll">
-            <div className="cm-scrollhint" aria-hidden="true">scroll →</div>
-            <div className="cm-plot" style={{ '--vb-w': W, '--vb-h': H }}>
-              <svg className="cm-svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-                {/* era bands (subtle zoning) */}
-                {ERAS.map((e) => (
-                  <rect key={e.id} className="cm-band" data-era={e.id} x={xOf(e.start)} y="26" width={xOf(e.end) - xOf(e.start)} height={H - 26} />
-                ))}
-                {/* year gridlines + top axis labels */}
-                {YEAR_TICKS.map((y) => (
-                  <g key={y}>
-                    <line className="cm-grid" x1={xOf(y)} y1="34" x2={xOf(y)} y2={SPINE} />
-                    <text className="cm-year" x={xOf(y)} y="22" textAnchor="middle">{y}</text>
-                  </g>
-                ))}
-                {/* the time spine */}
-                <line className="cm-spine" x1={xOf(Y0)} y1={SPINE} x2={xOf(Y1)} y2={SPINE} />
-                {/* arcs */}
-                {ARCS.map((a) => (
-                  <path key={a.key} className={`cm-arc is-${threadState(a.thread)}`} data-thread={a.thread} d={a.d} />
-                ))}
-                {/* era axis labels (bottom) — name only; the year range lives on the top axis */}
-                {ERAS.map((e) => (
-                  <text key={e.id} className="cm-era-label" x={(xOf(e.start) + xOf(e.end)) / 2} y={H - 12} textAnchor="middle">
-                    <tspan className="cm-era-name">{e.label}</tspan>
-                  </text>
-                ))}
-              </svg>
+      <div className="cm-plot-scroll">
+        <div className="cm-scrollhint" aria-hidden="true">scroll →</div>
+        <div className="cm-plot" style={{ '--vb-w': W, '--vb-h': H }}>
+          <svg className="cm-svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+            {/* era bands (subtle zoning) */}
+            {ERAS.map((e) => (
+              <rect key={e.id} className="cm-band" data-era={e.id} x={xOf(e.start)} y="26" width={xOf(e.end) - xOf(e.start)} height={H - 26} />
+            ))}
+            {/* year gridlines + top axis labels */}
+            {YEAR_TICKS.map((y) => (
+              <g key={y}>
+                <line className="cm-grid" x1={xOf(y)} y1="34" x2={xOf(y)} y2={SPINE} />
+                <text className="cm-year" x={xOf(y)} y="22" textAnchor="middle">{y}</text>
+              </g>
+            ))}
+            {/* the time spine */}
+            <line className="cm-spine" x1={xOf(Y0)} y1={SPINE} x2={xOf(Y1)} y2={SPINE} />
+            {/* arcs */}
+            {ARCS.map((a) => (
+              <path key={a.key} className={`cm-arc is-${threadState(a.thread)}`} data-thread={a.thread} d={a.d} />
+            ))}
+            {/* era axis labels (bottom) — name only; the year range lives on the top axis */}
+            {ERAS.map((e) => (
+              <text key={e.id} className="cm-era-label" x={(xOf(e.start) + xOf(e.end)) / 2} y={H - 12} textAnchor="middle">
+                <tspan className="cm-era-name">{e.label}</tspan>
+              </text>
+            ))}
+          </svg>
 
-              {/* interactive nodes — real focusable buttons over the SVG */}
-              <div className="cm-nodes">
-                {NODES.map((n) => (
-                  <button
-                    key={n.id}
-                    className={`cm-node type-${n.type} is-${nodeState(n)} ${activeNodeId === n.id ? 'is-active' : ''}`}
-                    data-era={n.era}
-                    style={{ left: `${pctX(n.year)}%`, top: `${(SPINE / H) * 100}%`, height: `${nodeButtonHeightPct(n.row)}%` }}
-                    onMouseEnter={() => setHoverNode(n.id)}
-                    onMouseLeave={() => setHoverNode(null)}
-                    onFocus={() => setHoverNode(n.id)}
-                    onBlur={() => setHoverNode(null)}
-                    onClick={() => clickNode(n.id)}
-                    aria-pressed={pinNode === n.id}
-                    aria-label={`${Math.floor(n.year)}. ${n.title}. ${n.org}.${n.metric ? ` ${n.metric}.` : ''}`}
-                  >
-                    <span className="cm-dot" aria-hidden="true" />
-                    <span className="cm-leader" aria-hidden="true" />
-                    <span className="cm-node-label">
-                      <span className="cm-node-short">{n.short}</span>
-                      {n.metric && <span className="cm-node-metric">{n.metric}</span>}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="cm-card" role="status" aria-live="polite">{card}</div>
-        </>
-      )}
-
-      {view === 'matrix' && (
-        <div className="cm-matrix-wrap">
-          <p className="cm-matrix-caption">Darker = deeper. Each cell is a concrete deliverable; hover for the fact.</p>
-          <div className="cm-matrix-scroll">
-            <table className="cm-matrix">
-              <caption className="visually-hidden">Skill domains by career era, intensity 0 to 4.</caption>
-              <thead>
-                <tr>
-                  <th scope="col" className="cm-mx-corner"><span className="visually-hidden">Skill</span></th>
-                  {MATRIX_COLS.map((c) => (
-                    <th key={c.id} scope="col" className="cm-mx-col"><span className="cm-mx-col-label">{c.label}</span><span className="cm-mx-col-years">{c.years}</span></th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {MATRIX_ROWS.map((r) => (
-                  <tr key={r.label}>
-                    <th scope="row" className="cm-mx-row">{r.label}</th>
-                    {r.cells.map(([i, note], ci) => (
-                      <td key={MATRIX_COLS[ci].id} className="cm-mx-cell">
-                        <span className={`cm-mx-dot lvl-${i}`} title={note ? `${r.label} · ${MATRIX_COLS[ci].label}: ${note}` : `${r.label} · ${MATRIX_COLS[ci].label}: —`}>
-                          <span className="visually-hidden">{note ? `${note} (level ${i} of 4)` : 'none'}</span>
-                        </span>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="cm-mx-legend" aria-hidden="true">
-            <span>less</span>
-            {[0, 1, 2, 3, 4].map((i) => <span key={i} className={`cm-mx-dot lvl-${i}`} />)}
-            <span>more</span>
+          {/* interactive nodes — real focusable buttons over the SVG */}
+          <div className="cm-nodes">
+            {NODES.map((n) => (
+              <button
+                key={n.id}
+                className={`cm-node type-${n.type} is-${nodeState(n)} ${activeNodeId === n.id ? 'is-active' : ''}`}
+                data-era={n.era}
+                style={{ left: `${pctX(n.year)}%`, top: `${(SPINE / H) * 100}%`, height: `${nodeButtonHeightPct(n.row)}%` }}
+                onMouseEnter={() => setHoverNode(n.id)}
+                onMouseLeave={() => setHoverNode(null)}
+                onFocus={() => setHoverNode(n.id)}
+                onBlur={() => setHoverNode(null)}
+                onClick={() => clickNode(n.id)}
+                aria-pressed={pinNode === n.id}
+                aria-label={`${Math.floor(n.year)}. ${n.title}. ${n.org}.${n.metric ? ` ${n.metric}.` : ''}`}
+              >
+                <span className="cm-dot" aria-hidden="true" />
+                <span className="cm-leader" aria-hidden="true" />
+                <span className="cm-node-label">
+                  <span className="cm-node-short">{n.short}</span>
+                  {n.metric && <span className="cm-node-metric">{n.metric}</span>}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
+
+      {card && <div className="cm-card" role="status" aria-live="polite">{card}</div>}
     </section>
   );
 }

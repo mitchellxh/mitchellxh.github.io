@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
 import '../styles/Navbar.css';
 
+/*
+ * Navbar — deliberately spare: identity on the left, the two current
+ * affiliations (BU · Yale) right-justified. Everything else (LinkedIn, GitHub,
+ * publications, resources) lives in the footer.
+ */
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   return (
     <nav className="navbar">
       <div className="navbar-content">
@@ -13,13 +15,6 @@ const Navbar = () => {
         </div>
 
         <div className="social-links">
-          <a href="https://www.linkedin.com/in/mitchell-horn-92a279106/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/linkedin.png" alt="LinkedIn" className="social-icon" />
-          </a>
-          <a href="https://github.com/mitchellxh/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/gh.png" alt="GitHub" className="social-icon social-icon--light" />
-            <img src="/icons/gh-dark.png" alt="GitHub" className="social-icon social-icon--dark" />
-          </a>
           <a href="https://www.bu.edu/cds-faculty/" target="_blank" rel="noopener noreferrer">
             <img src="/icons/bu.png" alt="BU Faculty of Computing & Data Sciences" className="social-icon" />
           </a>
@@ -27,25 +22,9 @@ const Navbar = () => {
             <img src="/icons/yale.png" alt="Yale" className="social-icon" />
           </a>
         </div>
-
-        <div className="nav-right">
-          <div className="nav-item dropdown"
-               onMouseEnter={() => setIsDropdownOpen(true)}
-               onMouseLeave={() => setIsDropdownOpen(false)}>
-            <span>Publications</span>
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                <a href="https://orcid.org/0000-0002-8249-5793">ORCID</a>
-                <a href="https://scholar.google.com/citations?user=eBbRfewAAAAJ&hl=en">Google Scholar</a>
-                <a href="https://www.researchgate.net/profile/Mitchell-Horn">ResearchGate</a>
-              </div>
-            )}
-          </div>
-          <a href="https://yse-rc.github.io/" className="nav-item">Resources</a>
-        </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar; 
+export default Navbar;

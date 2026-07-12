@@ -46,12 +46,6 @@
 .career-map [data-thread='teaching'] { --tc: var(--t-teaching); }
 
 /* ── header ─────────────────────────────────────────────────────────────── */
-.cm-eyebrow {
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  margin-bottom: 0.4rem;
-}
 .cm-title {
   font-family: var(--mono);
   font-size: clamp(1.5rem, 4vw, 2.1rem);
@@ -89,31 +83,7 @@
 .cm-metric-dots { flex: 1; border-bottom: 1px dotted var(--border); transform: translateY(-3px); }
 .cm-metric-v { color: var(--fg); font-weight: 600; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
 
-/* ── tabs ───────────────────────────────────────────────────────────────── */
-.cm-tabs {
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  margin-bottom: 1.3rem;
-}
-.cm-tab {
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  color: var(--muted);
-  background: transparent;
-  border: 0;
-  padding: 0.45rem 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
-}
-.cm-tab:hover { color: var(--fg); background: var(--surface-hover); }
-.cm-tab.is-on { color: var(--fg); background: var(--surface-hover); box-shadow: inset 0 0 0 1px var(--border); }
-
-/* ── filter (grep) ──────────────────────────────────────────────────────── */
+/* ── filter ─────────────────────────────────────────────────────────────── */
 .cm-filter {
   display: flex;
   align-items: center;
@@ -121,8 +91,6 @@
   gap: 0.5rem 0.7rem;
   margin-bottom: 1rem;
 }
-.cm-prompt { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
-.cm-prompt::after { content: ''; }
 .cm-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .cm-chip {
   display: inline-flex;
@@ -151,8 +119,6 @@
   background: var(--tc); flex: none;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--tc) 40%, transparent);
 }
-.cm-count { font-size: 0.78rem; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
-
 /* ── plot ───────────────────────────────────────────────────────────────── */
 .cm-plot-scroll { position: relative; overflow-x: auto; overflow-y: hidden; padding-bottom: 0.4rem; }
 .cm-scrollhint {
@@ -287,61 +253,16 @@
 .cm-card-threads-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .cm-mini-tag { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; color: var(--fg); }
 
-/* ── skill × era matrix ─────────────────────────────────────────────────── */
-.cm-matrix-caption { font-size: 0.85rem; color: var(--muted); margin: 0 0 1rem; }
-.cm-matrix-scroll { overflow-x: auto; }
-.cm-matrix { border-collapse: separate; border-spacing: 4px; font-family: var(--mono); }
-.cm-mx-corner { width: 12rem; }
-.cm-mx-col { padding: 0 0 0.5rem; text-align: center; vertical-align: bottom; }
-.cm-mx-col-label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--fg); }
-.cm-mx-col-years { display: block; font-size: 0.66rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.cm-mx-row {
-  text-align: right;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--fg);
-  padding-right: 0.7rem;
-  white-space: nowrap;
-}
-.cm-mx-cell { padding: 0; }
-.cm-mx-dot {
-  display: block;
-  width: 30px; height: 26px;
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--accent) 100%, transparent);
-  border: 1px solid transparent;
-}
-.cm-mx-cell .cm-mx-dot { position: relative; cursor: default; }
-.cm-mx-dot.lvl-0 { background: transparent; border-color: var(--border); }
-.cm-mx-dot.lvl-1 { background: color-mix(in srgb, var(--accent) 24%, transparent); }
-.cm-mx-dot.lvl-2 { background: color-mix(in srgb, var(--accent) 46%, transparent); }
-.cm-mx-dot.lvl-3 { background: color-mix(in srgb, var(--accent) 70%, transparent); }
-.cm-mx-dot.lvl-4 { background: var(--accent); }
-.cm-mx-cell .cm-mx-dot { width: 100%; min-width: 30px; }
-
-.cm-mx-legend {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 0.9rem;
-  font-size: 0.72rem;
-  color: var(--muted);
-}
-.cm-mx-legend .cm-mx-dot { width: 18px; height: 16px; display: inline-block; }
-.cm-mx-legend span:first-child { margin-right: 4px; }
-.cm-mx-legend span:last-child { margin-left: 4px; }
-
 /* ── responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 760px) {
   .career-map { padding: 0 1.1rem; }
   .cm-scrollhint { display: block; }
-  .cm-count { margin-left: 0; }
   .cm-card { min-height: 7.5rem; }
 }
 
 /* ── reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .cm-arc, .cm-node, .cm-dot, .cm-tab, .cm-chip, .cm-leader { transition: none; }
+  .cm-arc, .cm-node, .cm-dot, .cm-chip, .cm-leader { transition: none; }
   .cm-node:hover .cm-dot { transform: translateY(-50%); }
 }
 
