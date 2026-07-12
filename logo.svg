@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1 0.5 30 26" fill="none" role="img" aria-label="Mitchell Horn">
+  <path d="M7 19 L25 19" stroke="#6f7c34" stroke-width="1.5" opacity="0.24"/>
+  <path d="M8.8 19 C10.3 19 10.8 7 13.5 7 C16.2 7 16.7 19 18.4 19 Z" fill="#6f7c34" fill-opacity="0.13"/>
+  <path d="M18.4 19 C19.6 19 19.8 21.5 19.9 21.5 C21.4 21.5 22.2 20 23.4 19 Z" fill="#9e5675" fill-opacity="0.34"/>
+  <path d="M7 19 C9.8 19 10.3 7 13.5 7 C16.7 7 16.7 21.5 19.7 21.5 C22 21.5 23.4 19 25 19" stroke="#6f7c34" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6 5 C4.6 5 4.6 6.6 4.6 9 C4.6 12 3.6 13.5 2.9 13.5 C3.6 13.5 4.6 15 4.6 18 C4.6 20.4 4.6 22 6 22" stroke="#9e5675" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M26 5 C27.4 5 27.4 6.6 27.4 9 C27.4 12 28.4 13.5 29.1 13.5 C28.4 13.5 27.4 15 27.4 18 C27.4 20.4 27.4 22 26 22" stroke="#9e5675" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="13.5" cy="7" r="1.9" fill="#77b09c"/>
+</svg>
