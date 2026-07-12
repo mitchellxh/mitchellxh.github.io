@@ -265,10 +265,12 @@ export default function CareerMap() {
         <div className="cm-scrollhint" aria-hidden="true">scroll →</div>
         <div className="cm-plot" style={{ '--vb-w': W, '--vb-h': H }}>
           <svg className="cm-svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-            {/* era bands (subtle zoning) */}
-            {ERAS.map((e) => (
-              <rect key={e.id} className="cm-band" data-era={e.id} x={xOf(e.start)} y="26" width={xOf(e.end) - xOf(e.start)} height={H - 26} />
-            ))}
+            {/* era bands (zoning) — first/last extended to the plot edges so the endpoint nodes sit inside */}
+            {ERAS.map((e, i) => {
+              const x0 = i === 0 ? 4 : xOf(e.start);
+              const x1 = i === ERAS.length - 1 ? W - 4 : xOf(e.end);
+              return <rect key={e.id} className="cm-band" data-era={e.id} x={x0} y="26" width={x1 - x0} height={H - 26} />;
+            })}
             {/* year gridlines + top axis labels */}
             {YEAR_TICKS.map((y) => (
               <g key={y}>

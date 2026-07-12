@@ -134,8 +134,8 @@
 }
 .cm-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
-.cm-band { fill: var(--fg); opacity: 0.022; }
-.cm-band[data-era='hpc'] { opacity: 0.045; }
+.cm-band { fill: var(--fg); opacity: 0.055; }
+.cm-band[data-era='hpc'] { opacity: 0.09; }
 .cm-grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 5; opacity: 0.7; }
 .cm-year { fill: var(--muted); font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
 .cm-spine { stroke: var(--fg); stroke-width: 2; opacity: 0.55; }
