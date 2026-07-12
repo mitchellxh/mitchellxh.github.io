@@ -11,7 +11,6 @@ const Navbar = () => {
       <div className="navbar-content">
         <div className="nav-left">
           <img src="/logo.svg" alt="Mitchell Horn" className="nav-logo" />
-          <a href="/" className="nav-name">Mitchell Horn</a>
         </div>
 
         <div className="social-links">

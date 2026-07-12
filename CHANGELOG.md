@@ -6,6 +6,14 @@ All notable changes to this project.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added doc-tracking infrastructure: `NOTES.md` (doc-map), `CHANGELOG.md`, and `a docs convention`.
 
+### Redesign — full-viewport terminal hero + two-panel layout (2026-07-12)
+- Hero reworked into a **full-viewport "page 1"**: `.text-section` fills `100vh` (nav + hero) with the whoami content centered. The animated terminal command line is the focus, staggered diagonally (top-left) against a larger brain-cutout portrait (bottom-right) via a CSS-grid overlap so both stay large without colliding.
+- Terminal prompt → `mitchell@horn` (host = surname); the duplicate "Mitchell Horn" was dropped from the navbar (logo only) so the identity appears once. Command line enlarged (`clamp(1.6rem, 2.3vw, 2.1rem)`), portrait `clamp(220px, 26vw, 320px)`. Below 900px the panel stacks and resets the overlap.
+- **Two-panel palette**: cream hero (page 1) → white plot panel (page 2, `--surface`) → cream footer (returns to panel-1). Scrolling reveals the background change; fixed the page-background bleeding between the plot and footer (dropped the footer `margin-top`; the plot panel carries its own padding).
+- CareerMap: dropped the gray era-band chart backdrop so the plot reads against the distinct panel background (`.cm-band` opacity → 0; reversible).
+- **PWA icons regenerated** from `logo.svg` → `logo192.png` / `logo512.png` (the `{ HRF }` mark on cream, maskable safe-zone padding); `manifest.json` rewritten (real name/description, brand `theme_color`/`background_color`, `any maskable` purpose) and now linked from `index.html` (was orphaned); `theme-color` meta split light/dark.
+- Cleanup: removed orphaned `--section-gap` / `--hero-gap` tokens and dead `.iframe-container` / `.text-container p` rules.
+
 ### Redesign — personal logo + earthy color system (2026-07-12)
 - New self-built logo: a `{ HRF }` mark — the hemodynamic-response signal wrapped in data braces — in olive/wine/seafoam (`public/logo.svg`), live in the navbar with a full favicon set (`favicon.svg` / `favicon.ico` / `apple-touch-icon.png`). Retires the green-leaf `Logo1.png`.
 - Color system: `--accent` is mode-adaptive — wine (`#8a3f5c`) in light, olive (`#b0b06a`) in dark, each the most legible on its ground; added `--accent-2` (seafoam) for hover / active. All three hues are drawn from the logo. The logo itself stays consistent across themes (a brand anchor).
@@ -13,7 +21,6 @@ All notable changes to this project.
 - Career-map polish: pinned node card now dismisses on outside-click / Escape; metric ledger regrouped so each value hugs its own label (publications → `12+`); title → "10+ years, 1 data story"; sub reworded, unwrapped, and emphasizing the two encoded axes (`when` · `skill`).
 - Terminal prompt → `mitch@BU-CDS` (current affiliation).
 - Perf: profile photo resized + converted to WebP (5.1 MB → 208 KB); removed the PNG.
-- Follow-up: PWA icons (`logo192/512.png`) + `manifest.json` still show the old mark — regenerate before a PWA-oriented deploy.
 
 ### Redesign — homepage refinement: nav/footer restructure, leaner career map (2026-07-12)
 - Navbar pared to identity + current affiliations (BU · Yale, right-justified); LinkedIn, GitHub, Publications, and Resources moved into the footer. Publications dropdown removed (now flat links); Navbar is a static component again.

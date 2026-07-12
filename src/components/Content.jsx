@@ -8,20 +8,19 @@ const Content = () => {
     <main className="content">
       <div className="main-content">
         <section className="text-section">
-          <div className="text-container">
-            <TerminalBio />
+          <div className="text-container whoami-panel">
+            <div className="whoami-bio">
+              <TerminalBio />
+            </div>
+            <img
+              src="/prof-1-brain.webp"
+              alt="Mitchell Horn"
+              className="whoami-face"
+            />
           </div>
         </section>
 
         <section className="content-section">
-          <div className="image-container">
-            <img 
-              src="/prof-1-brain.webp"
-              alt="Profile" 
-              className="profile-image" 
-            />
-          </div>
-          
           <CareerMap />
         </section>
       </div>
@@ -29,4 +28,4 @@ const Content = () => {
   );
 };
 
-export default Content; 
+export default Content;

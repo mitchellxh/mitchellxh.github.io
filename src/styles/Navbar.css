@@ -1,7 +1,6 @@
 .navbar {
-  background-color: var(--surface);
+  background-color: var(--bg);
   height: 120px;
-  border-bottom: 1px solid var(--border);
   width: 100%;
 }
 
@@ -25,22 +24,6 @@
 .nav-logo {
   height: 56px;
   width: auto;
-}
-
-.nav-name {
-  font-size: var(--fs-name);
-  font-weight: 600;
-  color: var(--fg);
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-name:hover {
-  color: var(--accent-2);
-  transform: translateY(-2px);
 }
 
 /* affiliation marks (BU · Yale) — pushed right by nav-left's flex-grow */

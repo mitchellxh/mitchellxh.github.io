@@ -2,9 +2,8 @@
    Monospace to stay in the site's terminal register; muted and calm. */
 
 .site-footer {
-  margin-top: 5rem;                 /* calm separation; sits right after the content */
   border-top: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--bg);   /* return to panel-1 (cream) so the footer reads distinct from the white plot */
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
     'Liberation Mono', monospace;
 }

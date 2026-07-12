@@ -91,7 +91,7 @@ const TerminalBio = () => {
 
       <div className="terminal-visual" aria-hidden="true">
         <span className="terminal-line">
-          <span className="terminal-user">mitch@BU-CDS</span>
+          <span className="terminal-user">mitchell@horn</span>
           <span className="terminal-punct">:~$</span>{' '}
           {cmd}
           <span className="terminal-cursor" />

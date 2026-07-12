@@ -10,58 +10,75 @@
   flex-direction: column;
 }
 
+/* full-viewport hero — nav (120px) + this section fill 100vh; whoami centered.
+   The --surface panel sits on the cream page; scrolling past it reveals the plot. */
 .text-section {
   background-color: var(--bg);
-  padding: 4rem 0;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .text-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
   text-align: left;
 }
 
-.text-container p {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: var(--fg);
-}
-
 .content-section {
-  background-color: var(--bg);
+  background-color: var(--surface);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 0;
+  padding: clamp(3rem, 8vh, 6rem) 0;
 }
 
-.image-container {
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 4rem;
-  position: relative;
+/* whoami panel — terminal bio and portrait overlap-staggered in a grid so the
+   command (top-left) and a larger face (bottom-right) can both stay big without
+   colliding: they occupy different vertical bands of a tall cell. */
+.whoami-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 52vh;
 }
 
-.profile-image {
-  width: 100%;
-  height: auto;
-  max-height: 500px;
+.whoami-bio {
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: start;
+  min-width: 0;
+}
+
+.whoami-face {
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: end;
+  height: clamp(220px, 26vw, 320px);
+  width: auto;
   object-fit: contain;
 }
 
-.iframe-container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 2rem;
-  margin-top: 2rem;
-}
-
-@media (max-width: 768px) {
-  .text-container p {
-    font-size: 1.2rem;
+@media (max-width: 900px) {
+  .whoami-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 0;
+  }
+  .whoami-bio,
+  .whoami-face {
+    grid-area: auto;
+    align-self: auto;
+    justify-self: auto;
+  }
+  .whoami-face {
+    height: auto;
+    width: clamp(200px, 55vw, 300px);
+    align-self: center;
   }
 } 

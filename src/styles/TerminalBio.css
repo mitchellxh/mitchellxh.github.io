@@ -1,7 +1,7 @@
 .terminal {
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
     'Liberation Mono', monospace;
-  font-size: 1.3rem;
+  font-size: clamp(1.6rem, 2.3vw, 2.1rem);
   line-height: 1.8;
   text-align: left;
   /* Fixed width sized to the longest line => the block never re-centers or
