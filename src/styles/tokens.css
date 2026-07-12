@@ -1,0 +1,111 @@
+/* Design tokens — the single source of truth for color, type, and spacing.
+   Light is the brand default (preserves the minimal off-white identity).
+   Dark follows the OS via prefers-color-scheme; an explicit user choice
+   (data-theme on :root, set by ThemeToggle + the inline script in index.html)
+   overrides the OS because (0,2,0) beats the media query's (0,1,0). */
+
+:root {
+  color-scheme: light dark;
+
+  /* color — light (brand-preserving) */
+  --bg: #F5F5F1;            /* cream page background — the brand token */
+  --surface: #ffffff;      /* navbar / cards */
+  --fg: #111111;           /* body text */
+  --muted: #555555;        /* secondary text */
+  --border: #E5E5E5;
+  --accent: #0066cc;       /* the single accent — replaces the green gradient */
+  --focus-ring: #0066cc;   /* >= 3:1 on --bg (WCAG 1.4.11) */
+  --surface-hover: rgba(0, 0, 0, 0.05);
+
+  /* type scale */
+  --fs-name: 2.5rem;
+  --fs-body: 1.5rem;
+  --fs-nav: 1.2rem;
+
+  /* spacing scale */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+}
+
+/* Follow the OS when the user has NOT made an explicit choice */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141414;
+    --surface: #1e1e1e;
+    --fg: #e8e8e8;
+    --muted: #a0a0a0;
+    --border: #2a2a2a;
+    --accent: #8ab4f8;
+    --focus-ring: #8ab4f8;
+    --surface-hover: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* Explicit user choice wins over the OS in both directions */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F5F5F1;
+  --surface: #ffffff;
+  --fg: #111111;
+  --muted: #555555;
+  --border: #E5E5E5;
+  --accent: #0066cc;
+  --focus-ring: #0066cc;
+  --surface-hover: rgba(0, 0, 0, 0.05);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141414;
+  --surface: #1e1e1e;
+  --fg: #e8e8e8;
+  --muted: #a0a0a0;
+  --border: #2a2a2a;
+  --accent: #8ab4f8;
+  --focus-ring: #8ab4f8;
+  --surface-hover: rgba(255, 255, 255, 0.06);
+}
+
+/* Base */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+a { color: var(--accent); }
+
+/* Visible focus for keyboard users only (never a bare outline: none) */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* Utilities */
+.visually-hidden {
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+.external-icon {
+  margin-inline-start: 0.25em;
+  vertical-align: baseline;
+}
+
+/* Respect users who ask for less motion — global safety net */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

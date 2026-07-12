@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production (Vite build output)
+/dist
 
 # misc
 .DS_Store
@@ -22,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# local tool artifacts
+logs/
+local settings

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #F5F5F1;
+  background-color: var(--bg);
 }
 
 .main-content {
@@ -12,7 +12,7 @@
 }
 
 .text-section {
-  background-color: #F5F5F1;
+  background-color: var(--bg);
   padding: 4rem 0;
 }
 
@@ -20,17 +20,17 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  text-align: center;
+  text-align: left;
 }
 
 .text-container p {
   font-size: 1.5rem;
   line-height: 1.6;
-  color: #000;
+  color: var(--fg);
 }
 
 .content-section {
-  background-color: #F5F5F1;
+  background-color: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;

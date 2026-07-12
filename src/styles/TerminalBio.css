@@ -1,0 +1,56 @@
+.terminal {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  text-align: left;
+  /* Fixed width sized to the longest line => the block never re-centers or
+     reflows as the command/output length changes (the layout-jitter fix). */
+  width: 38ch;
+  max-width: 100%;
+  margin: 0;
+}
+
+.terminal-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Reserve the output line's height so it holds space while empty (no vertical jump). */
+.terminal-out {
+  min-height: 1.8em;
+  color: var(--fg);
+}
+
+.terminal-user {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.terminal-punct {
+  color: var(--muted);
+}
+
+/* Rectangular block cursor, on the command line where typing happens */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--fg);
+  vertical-align: -0.2em;
+  margin-left: 1px;
+  animation: terminal-blink 1.05s steps(1) infinite;
+}
+
+@keyframes terminal-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor { animation: none; }
+}
+
+@media (max-width: 768px) {
+  .terminal { font-size: 1.05rem; }
+}

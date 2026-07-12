@@ -1,7 +1,7 @@
 .navbar {
-  background-color: white;
+  background-color: var(--surface);
   height: 120px;
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid var(--border);
   width: 100%;
 }
 
@@ -36,30 +36,22 @@
   object-fit: contain;
   transition: all 0.3s cubic-bezier(.37,1.14,.26,1.24);
   transform-origin: center;
-  opacity: 0.85;
-  filter: brightness(1.2) contrast(1.2);
-}
-
-/* Special treatment for black icons */
-a[href*="github"] .social-icon,
-a[href*="twitter"] .social-icon {
-  filter: brightness(1.5) contrast(1.5) invert(0.1);
 }
 
 .social-icon:hover {
   transform: translateY(-4px) scale(1.25);
-  opacity: 1;
 }
 
-/* Keep existing AskCI styles */
-a[href*="ask.cyberinfrastructure"] .social-icon {
-  width: 78px;
-  height: 78px;
+/* Light/dark logo swap (e.g. GitHub) — honors the OS theme AND the manual toggle */
+.social-icon--dark { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .social-icon--light { display: none; }
+  :root:not([data-theme="light"]) .social-icon--dark { display: inline-block; }
 }
-
-a[href*="ask.cyberinfrastructure"] .social-icon:hover {
-  transform: translateY(-4px) scale(1.25);
-}
+:root[data-theme="light"] .social-icon--light { display: inline-block; }
+:root[data-theme="light"] .social-icon--dark { display: none; }
+:root[data-theme="dark"] .social-icon--light { display: none; }
+:root[data-theme="dark"] .social-icon--dark { display: inline-block; }
 
 .nav-right {
   display: flex;
@@ -75,38 +67,19 @@ a[href*="ask.cyberinfrastructure"] .social-icon:hover {
 }
 
 .nav-name {
-  font-size: 2.5rem;
+  font-size: var(--fs-name);
   font-weight: 600;
-  color: #000;
+  color: var(--fg);
   text-decoration: none;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: all 0.3s ease;
-}
-
-.nav-name::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #28a745, #40c463);
-  opacity: 0;
-  transform: scaleX(0.7) scaleY(0.2);
-  transition: all 0.4s cubic-bezier(.47,1.64,.41,.8);
-  z-index: -1;
-  border-radius: 4px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-name:hover {
-  color: white;
+  color: var(--accent);
   transform: translateY(-2px);
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-}
-
-.nav-name:hover::before {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .nav-center {
@@ -117,14 +90,14 @@ a[href*="ask.cyberinfrastructure"] .social-icon:hover {
 }
 
 .nav-item {
-  color: #000;
+  color: var(--fg);
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: var(--fs-nav);
   cursor: pointer;
 }
 
 .nav-item:hover {
-  color: #0066cc;
+  color: var(--accent);
 }
 
 .dropdown {
@@ -135,8 +108,8 @@ a[href*="ask.cyberinfrastructure"] .social-icon:hover {
   position: absolute;
   top: 100%;
   left: 0;
-  background: #F5F5F1;
-  border: 1px solid #E5E5E5;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.5rem 0;
   min-width: 200px;
@@ -146,13 +119,13 @@ a[href*="ask.cyberinfrastructure"] .social-icon:hover {
 .dropdown-menu a {
   display: block;
   padding: 0.5rem 1rem;
-  color: #000;
+  color: var(--fg);
   text-decoration: none;
 }
 
 .dropdown-menu a:hover {
-  color: #0066cc;
-  background: #f0f0f0;
+  color: var(--accent);
+  background: var(--surface-hover);
 }
 
 @media (max-width: 768px) {
@@ -175,4 +148,4 @@ a[href*="ask.cyberinfrastructure"] .social-icon:hover {
     flex-wrap: wrap;
     padding: 0.5rem 0;
   }
-} 
+}
