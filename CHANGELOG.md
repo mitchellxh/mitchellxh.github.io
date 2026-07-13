@@ -3,6 +3,7 @@
 All notable changes to this project.
 
 ## Unreleased
+- Navbar: dropped the glass tint entirely (`.nav-glass { background: transparent }`) per design direction. The frosted blur still isn't compositing in-browser despite the in-flow `position: relative` `.nav-glass` technique that mirrors kimsuchydesign.com — the ancestor chain (`.navbar` → `.app` → `#root` → `body` → `html`) is free of every backdrop-root trigger (`transform`/`filter`/`will-change`/`contain`/`perspective`/`opacity`/`isolation`/`mask`/`clip-path`), so there's no CSS reason it should fail. Diagnosis is ongoing via an isolated side-by-side test page.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added a `CHANGELOG.md` and a documentation-tracking convention for the project.
 
