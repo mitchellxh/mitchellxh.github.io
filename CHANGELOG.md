@@ -4,7 +4,7 @@ All notable changes to this project.
 
 ## Unreleased
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
-- Added doc-tracking infrastructure: `NOTES.md` (doc-map), `CHANGELOG.md`, and `a docs convention`.
+- Added a `CHANGELOG.md` and a documentation-tracking convention for the project.
 
 ### Redesign — full-viewport terminal hero + two-panel layout (2026-07-12)
 - Hero reworked into a **full-viewport "page 1"**: `.text-section` fills `100vh` (nav + hero) with the whoami content centered. The animated terminal command line is the focus, staggered diagonally (top-left) against a larger brain-cutout portrait (bottom-right) via a CSS-grid overlap so both stay large without colliding.
@@ -45,7 +45,7 @@ All notable changes to this project.
 - Deleted ~11.5 MB of unreferenced assets (`BigPicture1-3.png`, `Picture1.png`, `Logo2.png`, `survey_data.pptx`, `askci.svg`).
 - Added `public/.nojekyll` and `vite.config.js` (`base: '/'` for the user Pages site); deploy now targets `dist`.
 - Tests dropped during migration; a Vitest smoke test can be re-added later.
-- Full phased plan: `the redesign plan`. Phases 2-5 (design system, IA rebuild, assets, deploy cutover) pending.
+- Phases 2-5 (design system, IA rebuild, assets, deploy cutover) pending.
 
 ### Redesign — Phase 2: Design-system foundation (2026-07-11)
 - Added `src/styles/tokens.css`: color/type/spacing tokens with a single accent (`#0066cc`); removed the green gradient name-hover.
@@ -71,7 +71,7 @@ All notable changes to this project.
 - Only remaining dark-mode item: the green nav mark still half-blends on dark.
 
 ### Redesign — bio / statement (2026-07-11)
-- Applied the de-buzzworded statement drafted in the 2026-07-07 planning mockup (`a mockup`): replaced the "senior research data analyst… AI-driven solutions" line with **"I build systems and AI infrastructure that help researchers across disciplines develop, apply, and push the boundaries of data-science methods."**
+- De-buzzworded the intro statement: replaced the "senior research data analyst… AI-driven solutions" line with **"I build systems and AI infrastructure that help researchers across disciplines develop, apply, and push the boundaries of data-science methods."**
 - Kept it to the statement only — no separate title/affiliation label (matches the original site: affiliation is conveyed by the BU/Yale nav links, not repeated as text).
 - Removed the empty `<header>` placeholder from `Content.jsx`.
 
