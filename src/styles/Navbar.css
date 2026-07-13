@@ -5,19 +5,26 @@
   right: 0;
   z-index: 50;
   height: 120px;
-  /* frosted-glass header: a translucent "material" tint + heavy backdrop blur.
-     A pure 0-tint blur is invisible over a matching-colour bg (blurring cream = cream),
-     so the tint is what makes the glass read; tune the % and blur px to taste. */
+}
+
+/* The frost lives on a NON-fixed ::before layer (mirrors kimsuchydesign.com). backdrop-filter
+   applied directly to a position:fixed element does not composite reliably in Chromium/WebKit;
+   on an absolutely-positioned child it does. The tint is a light "material" so the glass reads
+   even over a matching background (blurring flat cream = cream). */
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--bg) 18%, transparent);
   backdrop-filter: blur(48px);
   -webkit-backdrop-filter: blur(48px);
 }
 
-/* macOS "Reduce Transparency" (and any reduced-transparency preference) makes the browser
-   DISABLE backdrop blur — those users would otherwise see a near-transparent bar, so give
-   them a near-opaque header instead. Everyone else gets the heavy blur above. */
+/* macOS "Reduce Transparency" (etc.) disables backdrop blur in the browser; give those users a
+   near-opaque bar instead of a faint one. Everyone else gets the heavy blur above. */
 @media (prefers-reduced-transparency: reduce) {
-  .navbar {
+  .navbar::before {
     background: color-mix(in srgb, var(--bg) 92%, transparent);
   }
 }
