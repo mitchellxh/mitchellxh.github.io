@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://mitchellxh.github.io",
+  "homepage": "https://mitchellhorn.dev",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
