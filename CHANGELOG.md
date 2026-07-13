@@ -6,6 +6,11 @@ All notable changes to this project.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added a `CHANGELOG.md` and a documentation-tracking convention for the project.
 
+### Redesign — sticky frosted header + full-screen mobile panels (2026-07-12)
+- Navbar is now a **fixed, translucent, lightly-blurred header** (`position: fixed`, `backdrop-filter: blur`, a `color-mix` tint of the page background): it stays pinned while content scrolls under it — invisible over the matching panel, a faint frost over contrasting content (e.g. the plot).
+- Each panel fills the viewport on mobile too: the hero uses `min-height: 100vh` (was compact on small screens), top-aligned so the command line sits high with clear space above the portrait; the plot panel already did.
+- Mobile navbar slimmed to a single row (72px, 40px logo), with room reserved for the fixed theme toggle (previously it stacked and the toggle overlapped the Yale mark).
+
 ### Redesign — full-viewport terminal hero + two-panel layout (2026-07-12)
 - Hero reworked into a **full-viewport "page 1"**: `.text-section` fills `100vh` (nav + hero) with the whoami content centered. The animated terminal command line is the focus, staggered diagonally (top-left) against a larger brain-cutout portrait (bottom-right) via a CSS-grid overlap so both stay large without colliding.
 - Terminal prompt → `mitchell@horn` (host = surname); the duplicate "Mitchell Horn" was dropped from the navbar (logo only) so the identity appears once. Command line enlarged (`clamp(1.6rem, 2.3vw, 2.1rem)`), portrait `clamp(220px, 26vw, 320px)`. Below 900px the panel stacks and resets the overlap.

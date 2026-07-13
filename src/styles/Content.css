@@ -16,7 +16,7 @@
   background-color: var(--bg);
   border-bottom: 1px solid var(--border);
   box-sizing: border-box;
-  min-height: calc(100vh - 120px);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,9 +71,8 @@
   /* mobile: compact, top-aligned hero (not full-viewport-centered) so the command
      line sits high, with clear space between it and the portrait */
   .text-section {
-    min-height: auto;
     justify-content: flex-start;
-    padding: clamp(2rem, 8vh, 4rem) 0 clamp(2.5rem, 9vh, 4.5rem);
+    padding: clamp(6rem, 15vh, 8rem) 0 clamp(2.5rem, 9vh, 4.5rem);
   }
   .whoami-panel {
     display: flex;
