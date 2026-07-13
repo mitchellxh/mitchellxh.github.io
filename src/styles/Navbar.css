@@ -19,13 +19,13 @@
   width: 100%;
   height: 100%;
   background: transparent;
-  backdrop-filter: blur(48px);
+  backdrop-filter: blur(16px);
 }
 
 /* Safari 14–17 shipped only the prefixed form; applied only where the standard is absent. */
 @supports not (backdrop-filter: blur(1px)) {
   .nav-glass {
-    -webkit-backdrop-filter: blur(48px);
+    -webkit-backdrop-filter: blur(16px);
   }
 }
 
