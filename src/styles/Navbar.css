@@ -5,10 +5,12 @@
   right: 0;
   z-index: 50;
   height: 120px;
-  /* sticky glass header — pure backdrop blur, no colour tint */
-  background: transparent;
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  /* frosted-glass header: a translucent "material" tint + heavy backdrop blur.
+     A pure 0-tint blur is invisible over a matching-colour bg (blurring cream = cream),
+     so the tint is what makes the glass read; tune the % and blur px to taste. */
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 }
 
 .navbar-content {
