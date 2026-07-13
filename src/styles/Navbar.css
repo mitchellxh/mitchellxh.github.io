@@ -8,9 +8,18 @@
   /* frosted-glass header: a translucent "material" tint + heavy backdrop blur.
      A pure 0-tint blur is invisible over a matching-colour bg (blurring cream = cream),
      so the tint is what makes the glass read; tune the % and blur px to taste. */
-  background: color-mix(in srgb, var(--bg) 55%, transparent);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background: color-mix(in srgb, var(--bg) 18%, transparent);
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px);
+}
+
+/* macOS "Reduce Transparency" (and any reduced-transparency preference) makes the browser
+   DISABLE backdrop blur — those users would otherwise see a near-transparent bar, so give
+   them a near-opaque header instead. Everyone else gets the heavy blur above. */
+@media (prefers-reduced-transparency: reduce) {
+  .navbar {
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+  }
 }
 
 .navbar-content {
