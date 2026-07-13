@@ -30,6 +30,10 @@
   --space-4: 2rem;
   --space-6: 3rem;
   --space-8: 4rem;
+
+  /* content column — wide + edge-breathing (calibrated vs kimsuchydesign.com's ~72px margins) */
+  --content-max: 1600px;
+  --content-pad: clamp(1.5rem, 5vw, 5rem);
 }
 
 /* Follow the OS when the user has NOT made an explicit choice */

@@ -9,9 +9,9 @@
 }
 
 .footer-inner {
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 2.2rem 2rem;
+  padding: 2.2rem var(--content-pad);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

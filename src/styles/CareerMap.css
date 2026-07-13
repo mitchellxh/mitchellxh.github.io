@@ -14,9 +14,9 @@
     'Liberation Mono', monospace;
 
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--content-pad);
   color: var(--fg);
   font-family: var(--mono);
 }

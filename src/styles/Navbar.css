@@ -5,17 +5,17 @@
   right: 0;
   z-index: 50;
   height: 120px;
-  /* sticky frosted-glass header — content blurs and softens as it scrolls under */
-  background: color-mix(in srgb, var(--bg) 65%, transparent);
+  /* sticky glass header — pure backdrop blur, no colour tint */
+  background: transparent;
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
 }
 
 .navbar-content {
-  max-width: 1200px;
+  max-width: var(--content-max);
   height: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--content-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
