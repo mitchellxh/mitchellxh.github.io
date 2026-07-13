@@ -3,7 +3,8 @@
 All notable changes to this project.
 
 ## Unreleased
-- Navbar: dropped the glass tint entirely (`.nav-glass { background: transparent }`) per design direction. The frosted blur still isn't compositing in-browser despite the in-flow `position: relative` `.nav-glass` technique that mirrors kimsuchydesign.com — the ancestor chain (`.navbar` → `.app` → `#root` → `body` → `html`) is free of every backdrop-root trigger (`transform`/`filter`/`will-change`/`contain`/`perspective`/`opacity`/`isolation`/`mask`/`clip-path`), so there's no CSS reason it should fail. Diagnosis is ongoing via an isolated side-by-side test page.
+- **Fixed: the frosted navbar rendered crisp in production (no blur), while working in dev.** Root cause was in the build, not the CSS technique: when `backdrop-filter` and `-webkit-backdrop-filter` sat in the same rule, the CSS minifier (esbuild, via Vite) deduped them and shipped **only** the `-webkit-` form, which current Blink no longer composites. The dev server serves unminified source (both properties → blur worked), so the bug was invisible until the *built* output was inspected — every earlier "no blur" report was this. Fix: keep the `-webkit-` form in a separate `@supports not (backdrop-filter: …)` block in `Navbar.css` so the minifier can't dedup the standard property away; the built CSS now carries both. Verified by rendering the built `dist` (not just source) in headless Chromium via **ANGLE-Metal + `--headless=new`**, which composites `backdrop-filter` where SwiftShader computes it to `none`.
+- Navbar: dropped the glass tint entirely (`.nav-glass { background: transparent }`) — pure blur, no tint.
 - Navbar: switched affiliation link from Yale (YSE staff directory) to BU CDS Faculty (`bu.edu/cds-faculty`); added placeholder `icons/bu.svg` (swap in the official CDS logo when available).
 - Added a `CHANGELOG.md` and a documentation-tracking convention for the project.
 

@@ -7,16 +7,26 @@
   height: 120px;
 }
 
-/* Frost on an in-flow position:relative layer that fills the bar (mirrors kimsuchydesign.com's
-   exact technique). backdrop-filter does NOT composite on a position:fixed element, nor on an
-   absolutely-positioned child — but on a RELATIVE in-flow child it does; the content overlays it. */
+/* Frost lives on an in-flow position:relative layer that fills the bar, with the nav content
+   overlaid (mirrors kimsuchydesign.com). The frost long looked "broken" in production for a
+   reason that was NOT this structure: when both `backdrop-filter` and `-webkit-backdrop-filter`
+   sat in the same rule, the CSS minifier (esbuild) deduped them and shipped ONLY the -webkit-
+   form, which current Blink no longer composites — so the blur worked in dev (unminified) but
+   rendered crisp in the deployed build. Keeping the -webkit- form in the separate @supports
+   block below prevents that dedup, so the standard property survives minification. */
 .nav-glass {
   position: relative;
   width: 100%;
   height: 100%;
   background: transparent;
   backdrop-filter: blur(48px);
-  -webkit-backdrop-filter: blur(48px);
+}
+
+/* Safari 14–17 shipped only the prefixed form; applied only where the standard is absent. */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-glass {
+    -webkit-backdrop-filter: blur(48px);
+  }
 }
 
 /* macOS "Reduce Transparency" (etc.) disables backdrop blur in the browser; give those users a
