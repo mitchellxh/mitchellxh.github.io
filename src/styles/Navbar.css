@@ -84,7 +84,10 @@
     height: 72px;
   }
   .navbar-content {
-    padding-right: 4rem;   /* reserve room for the fixed theme toggle (top-right) */
+    /* push the affiliation marks left of the fixed toggle, leaving a clear gap between the
+       two groups (Yale↔toggle ~36px, wider than the 24px BU↔Yale gap) so the toggle reads
+       as a separate control rather than a third logo */
+    padding-right: 5rem;
   }
   .nav-logo {
     height: 40px;

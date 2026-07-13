@@ -73,6 +73,15 @@
   .text-section {
     justify-content: flex-start;
     padding: clamp(6rem, 15vh, 8rem) 0 clamp(2.5rem, 9vh, 4.5rem);
+    /* dvh, not the base 100vh: on mobile 100vh resolves against the *large* viewport
+       (browser toolbar retracted), so a 100vh panel overflows the visible area while the
+       address bar shows and never cleanly fills the screen. dvh tracks the real visible
+       height. Desktop keeps 100vh (base rule) — this override is mobile-only. */
+    min-height: 100dvh;
+  }
+  /* panel 2 (career map) fills the visible viewport for the same reason */
+  .content-section {
+    min-height: 100dvh;
   }
   .whoami-panel {
     display: flex;

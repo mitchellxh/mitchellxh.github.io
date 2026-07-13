@@ -255,6 +255,11 @@
   .career-map { padding: 0 1.1rem; }
   .cm-scrollhint { display: block; }
   .cm-card { min-height: 7.5rem; }
+  /* At 680px the date-positioned 132px labels collide (12 overlapping pairs measured):
+     the fix is width, not shrinking text. 1120px == the SVG's native W (CareerMap.jsx),
+     so the plot renders at its authored scale and same-row labels clear by ~34px. The
+     .cm-plot-scroll container already scrolls horizontally to reveal it. */
+  .cm-plot { min-width: 1120px; }
 }
 
 /* ── reduced motion ─────────────────────────────────────────────────────── */

@@ -21,3 +21,13 @@
 .theme-toggle:hover {
   border-color: var(--accent);
 }
+
+/* Mobile: subordinate the toggle to the 32px affiliation marks — a smaller circle reads as
+   a secondary control, not an equal peer next to the university logos. Desktop keeps 2.5rem. */
+@media (max-width: 768px) {
+  .theme-toggle {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 1rem;
+  }
+}
