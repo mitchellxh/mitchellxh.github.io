@@ -7,7 +7,7 @@ All notable changes to this project.
 - Added a `CHANGELOG.md` and a documentation-tracking convention for the project.
 
 ### Redesign — sticky frosted header + full-screen mobile panels (2026-07-12)
-- Navbar is now a **fixed, translucent, lightly-blurred header** (`position: fixed`, `backdrop-filter: blur`, a `color-mix` tint of the page background): it stays pinned while content scrolls under it — invisible over the matching panel, a faint frost over contrasting content (e.g. the plot).
+- Navbar is now a **fixed frosted-glass header** (`position: fixed`, `backdrop-filter: blur(26px)`, a `color-mix` 65% tint of the page background): it stays pinned while content scrolls under it and blurs/softens beneath it — near-invisible over the matching panel, a real frost over contrasting content (e.g. the plot).
 - Each panel fills the viewport on mobile too: the hero uses `min-height: 100vh` (was compact on small screens), top-aligned so the command line sits high with clear space above the portrait; the plot panel already did.
 - Mobile navbar slimmed to a single row (72px, 40px logo), with room reserved for the fixed theme toggle (previously it stacked and the toggle overlapped the Yale mark).
 
