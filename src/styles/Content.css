@@ -79,7 +79,10 @@
     flex-direction: column;
     align-items: flex-start;
     min-height: 0;
-    gap: clamp(3rem, 14vw, 6rem);
+    /* vh-based gap drops the portrait into the lower half of the full-screen panel
+       (the void is vertical, so scale with screen height, not width): the command line
+       stays anchored high and the image sits low, instead of both bunching up top. */
+    gap: clamp(5rem, 25vh, 14rem);
   }
   .whoami-bio,
   .whoami-face {
