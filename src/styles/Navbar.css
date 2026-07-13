@@ -7,15 +7,13 @@
   height: 120px;
 }
 
-/* The frost lives on a NON-fixed ::before layer (mirrors kimsuchydesign.com). backdrop-filter
-   applied directly to a position:fixed element does not composite reliably in Chromium/WebKit;
-   on an absolutely-positioned child it does. The tint is a light "material" so the glass reads
-   even over a matching background (blurring flat cream = cream). */
-.navbar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
+/* Frost on an in-flow position:relative layer that fills the bar (mirrors kimsuchydesign.com's
+   exact technique). backdrop-filter does NOT composite on a position:fixed element, nor on an
+   absolutely-positioned child — but on a RELATIVE in-flow child it does; the content overlays it. */
+.nav-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
   background: color-mix(in srgb, var(--bg) 18%, transparent);
   backdrop-filter: blur(48px);
   -webkit-backdrop-filter: blur(48px);
@@ -24,14 +22,15 @@
 /* macOS "Reduce Transparency" (etc.) disables backdrop blur in the browser; give those users a
    near-opaque bar instead of a faint one. Everyone else gets the heavy blur above. */
 @media (prefers-reduced-transparency: reduce) {
-  .navbar::before {
+  .nav-glass {
     background: color-mix(in srgb, var(--bg) 92%, transparent);
   }
 }
 
 .navbar-content {
+  position: absolute;
+  inset: 0;
   max-width: var(--content-max);
-  height: 100%;
   margin: 0 auto;
   padding: 0 var(--content-pad);
   display: flex;

@@ -8,6 +8,7 @@ import '../styles/Navbar.css';
 const Navbar = () => {
   return (
     <nav className="navbar">
+      <div className="nav-glass" aria-hidden="true"></div>
       <div className="navbar-content">
         <div className="nav-left">
           <img src="/logo.svg" alt="Mitchell Horn" className="nav-logo" />
