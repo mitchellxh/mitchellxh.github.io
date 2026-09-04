@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "test:page": "node scripts/test_page.mjs dist/index.html",
+    "predeploy": "npm run build && npm run test:page",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
