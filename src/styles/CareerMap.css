@@ -277,3 +277,17 @@
   .cm-arc[data-thread='imaging'] { stroke-dasharray: 12 5 2 5; }
   .cm-arc[data-thread='teaching'] { stroke-dasharray: 16 6; }
 }
+
+/* Current role. The 2024-2026 stretch of the spine is fully saturated -- the
+   present role cannot be moved to a higher label row without its 132px label
+   colliding with its neighbours -- so prominence is carried by emphasis rather
+   than by lane position: a ringed accent dot and a heavier label. */
+.cm-node.is-current .cm-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.cm-node.is-current .cm-node-short {
+  font-weight: 700;
+  color: var(--accent);
+}

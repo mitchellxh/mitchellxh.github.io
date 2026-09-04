@@ -53,6 +53,12 @@ const THREADS = [
     tier: 0.28,
     desc: '15+ HPC & ML workshops; containerized stacks for 200+ researchers; 750+ people trained across BU and Yale.',
   },
+  {
+    id: 'geo',
+    label: 'Remote sensing / geo',
+    tier: 0.14,
+    desc: 'Computer vision pointed at landscapes: NSF "Envisioning AI" species ID (250+ rare species, 76%) and the New Haven urban-forest survey used by field surveyors.',
+  },
 ];
 const THREAD_BY_ID = Object.fromEntries(THREADS.map((t) => [t.id, t]));
 
@@ -64,26 +70,30 @@ const ERAS = [
 ];
 
 // ── nodes on the time spine (roles · projects · publications · foundation) ────
-// row = which stagger lane the label drops into (0 nearest spine … 2 lowest).
+// row = which stagger lane the label drops into (0 nearest spine … 3 lowest).
+// Placement is collision-checked: same-row labels are 132px wide (.cm-node) and
+// must clear at the plot's narrowest render (W=1120, where 1px = 1 SVG unit).
 const NODES = [
   { id: 'bme', year: 2016, type: 'foundation', era: 'neuro', short: 'B.Eng BME', title: 'B.Eng, Biomedical Engineering', org: 'Boston University', detail: 'Biology & medicine — the foundation the whole arc builds on.', threads: [], row: 0 },
   { id: 'bumc', year: 2017, type: 'role', era: 'neuro', short: 'BU Med Center', title: 'Research Technologist & Coordinator', org: 'BU Medical Center · 2016–2018', detail: 'Multi-site neuroimaging studies; MRI acquisition protocols (perfusion-weighted imaging); data QC & regulatory compliance.', threads: ['imaging'], row: 1 },
   { id: 'mgh', year: 2019, type: 'role', era: 'neuro', short: 'MGH', title: 'Senior Computational Scientist', org: 'Massachusetts General Hospital · 2018–2022', detail: '7T MRI analysis pipelines; automated feature extraction (FreeSurfer / FSL / scikit-image) cut 4 h → 15 min (93% faster).', threads: ['imaging', 'python'], row: 0 },
   { id: 'cnn', year: 2020, type: 'project', era: 'neuro', short: '3D CNN seg', title: '3D-segmentation CNN', org: 'MGH · cerebral amyloid angiopathy', detail: 'Custom 3D convolutional network for brain-lesion segmentation: 88% sensitivity across 1,000+ scans. The seed of the ML thread.', metric: '88% · 1,000+ scans', threads: ['ml', 'gpu'], row: 1 },
-  { id: 'pubs', year: 2021, type: 'pub', era: 'neuro', short: '12 papers', title: '12 peer-reviewed publications', org: 'Neuroimaging · 2016–2024', detail: 'Twelve peer-reviewed papers on cerebral amyloid angiopathy and quantitative MRI. ORCID 0000-0002-8249-5793.', metric: '12 publications', threads: ['imaging'], row: 2 },
+  { id: 'pubs', year: 2021, type: 'pub', era: 'neuro', short: '13 papers', title: '13 peer-reviewed publications', org: 'Neuroimaging · 2016–2024', detail: 'Thirteen peer-reviewed papers on cerebral amyloid angiopathy and quantitative MRI. ORCID 0000-0002-8249-5793.', metric: '13 publications', threads: ['imaging'], row: 2 },
   { id: 'rcs', year: 2022, type: 'role', era: 'hpc', short: 'BU · RCS', title: 'Research Computing App & Data Specialist III', org: 'Boston University · 2022–2024', detail: 'HPC modernization: containerization (Docker / Singularity) for 200+ researchers; a 100+ package software stack via Lmod / EasyBuild / Spack; 60% average compute-time cut.', threads: ['teaching'], row: 0 },
   { id: 'gpumig', year: 2022.6, type: 'project', era: 'hpc', short: 'GPU ×10–40', title: 'Migrated 25+ workflows to GPU', org: 'BU Research Computing', detail: 'Ported 25+ research workflows to GPU for 10–40× speedups — the compute muscle behind later AI work.', metric: '25+ workflows · 10–40×', threads: ['gpu', 'python'], row: 1 },
-  { id: 'train', year: 2023.4, type: 'project', era: 'hpc', short: '15+ workshops', title: '15+ workshops · 500+ researchers', org: 'BU Research Computing', detail: 'Designed and delivered 15+ workshops to 500+ researchers on HPC, containers and GPU computing.', metric: '500+ trained', threads: ['teaching'], row: 2 },
-  { id: 'yale', year: 2024, type: 'role', era: 'ai', short: 'Yale', title: 'Senior Research Data Support Analyst', org: 'Yale School of the Environment · 2024–2025', detail: 'Environmental Data Science Certificate + YSE Research Computing Series; Git/GitHub, HPC & ML workshops; DVC + S3 data-engineering pipelines. Co-PI, $100K NSF "Envisioning AI" (species ID, 76%).', threads: ['teaching', 'python'], row: 0 },
+  { id: 'train', year: 2023.4, type: 'project', era: 'hpc', short: '15+ workshops', title: '15+ workshops · 500+ researchers', org: 'BU Research Computing', detail: 'Designed and delivered 15+ workshops to 500+ researchers at BU (20+ and 750+ including Yale) on HPC, containers and GPU computing.', metric: '500+ trained', threads: ['teaching'], row: 2 },
+  { id: 'yale', year: 2024, type: 'role', era: 'ai', short: 'Yale', title: 'Senior Research Data Support Analyst', org: 'Yale School of the Environment · 2024–2025', detail: 'Environmental Data Science Certificate + YSE Research Computing Series; Git/GitHub, HPC & ML workshops; DVC + S3 data-engineering pipelines. Co-PI, $100K NSF "Envisioning AI" (species ID, 76%).', threads: ['teaching', 'python', 'geo'], row: 0 },
   { id: 'epr', year: 2024.6, type: 'project', era: 'ai', short: 'EPR AI · RAG', title: 'EPR AI — enterprise RAG platform', org: 'Yale · sustain-rag', detail: 'Q&A over 825+ academic references: Qdrant hybrid retrieval + Gemini / Vertex AI, Flask on GCP, a React frontend — serving 250+ users.', metric: '825+ papers · 250+ users', threads: ['ml', 'python'], row: 1 },
-  { id: 'cds', year: 2025, type: 'role', era: 'ai', short: 'BU CDS', title: 'Data Systems & AI Engineer', org: 'BU Faculty of Computing & Data Sciences · 2025–present', detail: 'Data + AI infrastructure for research. PI on $3.1M NSF ACCESS Accelerate (flood-resilience benchmarking); FABRIC testbed lead; NAIRR member.', metric: '$3.1M+ · NAIRR', threads: ['gpu', 'python'], row: 2 },
+  { id: 'cds', year: 2025, type: 'role', era: 'ai', short: 'BU CDS', title: 'Data Systems & AI Engineer', org: 'BU Faculty of Computing & Data Sciences · 2025–present', detail: 'Data + AI infrastructure for research. PI on NSF ACCESS Accelerate: 3,000,000 compute credits (CIV250023, "Upscaling for Flood Resilience"); FABRIC testbed lead; NAIRR member.', metric: '3M credits · NAIRR', threads: ['gpu', 'python'], row: 2, current: true },
   { id: 'portal', year: 2026, type: 'project', era: 'ai', short: 'GPU portal', title: 'GPU utilization / efficiency portal', org: 'BU CDS · cds-scc-audit', detail: 'Raw gpustats → a live R dashboard: utilization, VRAM, energy-$ and "top wasters" / "idle GPUs" views. Closing the loop back to GPU where the arc began.', threads: ['gpu', 'python'], row: 0 },
+  { id: 'uri', year: 2025.5, type: 'project', era: 'ai', short: 'URI survey', title: 'URI Sheets — New Haven urban forest survey', org: 'Yale-YSE · uri_sheets', detail: 'Real-time urban-forest survey used by field surveyors across New Haven neighbourhoods: React frontend on GitHub Pages, Express backend on App Engine, Google Sheets as the store, with a tree_key species-reconciliation catalog and a seasonal rotation runbook.', metric: 'field-deployed', threads: ['geo'], row: 3 },
+  { id: 'msda', year: 2026.4, type: 'foundation', era: 'ai', short: 'M.S. Data Analytics', title: 'M.S., Data Analytics', org: 'University of New Haven', detail: 'Master of Science in Data Analytics — the formal counterpart to a decade of applied research computing.', threads: [], row: 1 },
 ];
 
 const METRICS = [
   ['researchers_trained', '750+'],
-  ['grants_secured', '$3.1M+'],
-  ['publications', '12+'],
+  ['access_credits', '3M'],
+  ['publications', '13'],
 ];
 
 // ── geometry (SVG user units; the plot scales to fit) ────────────────────────
@@ -291,7 +301,7 @@ export default function CareerMap() {
             {NODES.map((n) => (
               <button
                 key={n.id}
-                className={`cm-node type-${n.type} is-${nodeState(n)} ${activeNodeId === n.id ? 'is-active' : ''}`}
+                className={`cm-node type-${n.type} is-${nodeState(n)} ${n.current ? 'is-current' : ''} ${activeNodeId === n.id ? 'is-active' : ''}`}
                 data-era={n.era}
                 style={{ left: `${pctX(n.year)}%`, top: `${(SPINE / H) * 100}%`, height: `${nodeButtonHeightPct(n.row)}%` }}
                 onMouseEnter={() => setHoverNode(n.id)}
