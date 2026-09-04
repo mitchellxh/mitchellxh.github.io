@@ -2,33 +2,38 @@ import { useEffect, useRef, useState } from 'react';
 import '../styles/TerminalBio.css';
 
 // [command, output]. The command is TYPED (like a real shell); the output
-// prints INSTANTLY. Grounded in the CV. `whoami` rotates through roles;
-// other commands reveal facts. Keep outputs <= ~34 chars to fit the width.
+// prints INSTANTLY. Every line is grounded in the CV or a repo I own -- no
+// claim here is unverifiable. Keep outputs <= ~34 chars to fit the width.
+//
+// NOTE ON $ROLE: the NSF ACCESS award is 3,000,000 COMPUTE CREDITS, not
+// dollars. Never render it as "$3.1M" -- that reads as secured grant money
+// and is the kind of error a program officer spots instantly.
 const ENTRIES = [
   ['whoami', 'Data Systems & AI Engineer'],
   ['pwd', '~/bu/cds'],
-  ['cat role.txt', 'data + AI infra for research'],
-  ['whoami', 'research computing engineer'],
-  ['ls repos/', 'epr-ai sustain-rag seedlearn'],
-  ['cat epr-ai.md', 'RAG over 825+ academic papers'],
-  ['whoami', 'ML / AI engineer'],
+  ['echo $ROLE', 'PI · 3M NSF ACCESS credits'],
+  ['ls rag/', 'epr · drylands · rao · graph'],
+  ['cat epr-ai.md', 'RAG · extended producer resp.'],
+  ['python detect.py', '1.9M trees · 486 NAIP images'],
+  ['deploy --cloud', 'aws · gcp · azure · 250+ users'],
+  ['cat access.md', 'upscaling for flood resilience'],
   ['echo $STACK', 'qdrant · gemini · pytorch · slurm'],
-  ['cat teaching.txt', 'git · hpc · ml - 750+ trained'],
-  ['cat consulting.txt', 'AI/ML + HPC research advising'],
-  ['whoami', 'technical program manager'],
-  ['ls programs/', 'nsf-access fabric envisioning-ai'],
-  ['cat data-science.txt', 'climate-scenario forecasting'],
-  ['ls analysis/', 'water-quality · energy · forecasts'],
-  ['./gpu-portal', 'GPU usage & energy dashboard'],
-  ['cat data-eng.txt', 'clean, version & serve lab data'],
-  ['echo $AWARDS', '$3.1M HPC · $100K AI · $10K NAIRR'],
-  ['cat vision.txt', '3D brain segmentation - 88% sens'],
-  ['python detect.py', 'forest + species vision models'],
+  ['./uri-survey', 'New Haven urban forest survey'],
+  ['cat drylands.md', '983 articles · 45 years'],
   ['history | grep gpu', '25+ workflows · 10-40x faster'],
-  ['whoami', '(ex) computational scientist'],
-  ['cat past-life.txt', 'neuroimaging · 12 papers'],
-  ['groups', 'hpc ml data enablement'],
-  ['uptime', 'optimizing research since 2016'],
+  ['cat seedlearn.md', 'BioCLIP seedling ID · iNat'],
+  ['./vllm-serve', 'vLLM on H200 · SLURM cluster'],
+  ['cat hpc.txt', '200+ researchers · 60% faster'],
+  ['cat species.md', '250+ rare species · 76% acc'],
+  ['./gpu-portal', 'live GPU energy & waste audit'],
+  ['dvc status', '282 GB · 306k files versioned'],
+  ['cat vision.txt', '3D CNN · 88% sens · 1,000 scans'],
+  ['cat research.txt', '13 peer-reviewed papers'],
+  ['groups', 'nairr · fabric · access · neurips'],
+  ['orcid --open', '0000-0002-8249-5793'],
+  ['cat teaching.txt', '750+ trained · 20+ workshops'],
+  ['uname -a', 'neuroscience -> AI infra'],
+  ['uptime', 'building research systems, 10y'],
 ];
 
 const TYPE_MS = 65;   // per char while typing the command
