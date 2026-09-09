@@ -33,6 +33,8 @@ const ENTRIES = [
   ['groups', 'nairr · fabric · access · neurips'],
   ['orcid --open', '0000-0002-8249-5793'],
   ['cat teaching.txt', '750+ trained · 20+ workshops'],
+  ['ls clinics/', 'CDS Clinics · BU Spark! practicum'],
+  ['cat degrees.txt', 'B.Eng BME · M.S. data analytics'],
   ['uname -a', 'neuroscience -> AI infra'],
   ['uptime', 'building research systems, 10y'],
 ];
