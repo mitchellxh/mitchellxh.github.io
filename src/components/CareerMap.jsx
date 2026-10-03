@@ -84,8 +84,8 @@ const NODES = [
   { id: 'train', year: 2023.4, type: 'project', era: 'hpc', short: '15+ workshops', title: '15+ workshops · 500+ researchers', org: 'BU Research Computing', detail: 'Designed and delivered 15+ workshops to 500+ researchers at BU (20+ and 750+ including Yale) on HPC, containers and GPU computing.', metric: '500+ trained', threads: ['teaching'], row: 2 },
   { id: 'yale', year: 2024, type: 'role', era: 'ai', short: 'Yale', title: 'Senior Research Data Support Analyst', org: 'Yale School of the Environment · 2024–2026', detail: 'Environmental Data Science Certificate + YSE Research Computing Series; Git/GitHub, HPC & ML workshops; DVC + S3 data-engineering pipelines. Co-PI, $100K NSF "Envisioning AI" (species ID, 76%).', threads: ['teaching', 'python', 'geo'], row: 0 },
   { id: 'epr', year: 2024.6, type: 'project', era: 'ai', short: 'EPR AI · RAG', title: 'EPR AI — enterprise RAG platform', org: 'Yale · sustain-rag', detail: 'Q&A over 1,000+ academic references: Qdrant hybrid retrieval + Gemini / Vertex AI, Flask on GCP, a React frontend — serving 250+ users.', metric: '1,000+ papers · 250+ users', threads: ['ml', 'python'], row: 1 },
-  { id: 'cds', year: 2026, type: 'role', era: 'ai', short: 'BU CDS', title: 'Data Systems & AI Engineer', org: 'BU Faculty of Computing & Data Sciences · 2026–present', detail: 'Works with CDS faculty to turn research needs into working systems — data pipelines, software prototypes, and LLM applications — leading them from scoping through deployment; liaison to BU research computing and IT; supports faculty-led student projects through CDS Clinics and BU Spark! practicums. PI on NSF ACCESS Accelerate: 3,000,000 compute credits (CIV250023, "Upscaling for Flood Resilience"); FABRIC testbed lead; NAIRR member.', metric: '3M credits · NAIRR', threads: ['gpu', 'python', 'teaching'], row: 2, current: true },
-  { id: 'portal', year: 2026.2, type: 'project', era: 'ai', short: 'SCC explorers', title: 'CDS cluster explorers — CPU, GPU & public', org: 'BU CDS · gpu/cpu/pub-cds-scc', detail: 'Three self-contained dashboards for the CDS buy-in pools on BU\u2019s Shared Computing Cluster: org-gated GPU and CPU explorers (utilization and efficiency by project, user, card and node, a pool score, queue-wait drivers, live occupancy) plus the public cluster page at cluster.cds.bu.edu. Data is inlined at build time, so each page opens with no server. ~660 commits across the four repos.', metric: '3 dashboards', threads: ['gpu', 'python'], row: 0 },
+  { id: 'cds', year: 2026, type: 'role', era: 'ai', short: 'BU CDS', title: 'Data Systems & AI Engineer', org: 'BU Faculty of Computing & Data Sciences · 2026–present', detail: 'Turns CDS faculty research needs into working systems — data pipelines, prototypes and LLM applications — from scoping to deployment; liaison to BU research computing and IT; supports CDS Clinics and BU Spark! projects. PI, NSF ACCESS Accelerate (3M credits); FABRIC lead; NAIRR member.', metric: '3M credits · NAIRR', threads: ['gpu', 'python', 'teaching'], row: 2, current: true },
+  { id: 'portal', year: 2026.2, type: 'project', era: 'ai', short: 'SCC explorers', title: 'CDS cluster explorers — CPU, GPU & public', org: 'BU CDS · gpu/cpu/pub-cds-scc', detail: 'Three self-contained dashboards for the CDS pools on BU\u2019s Shared Computing Cluster: org-gated GPU and CPU explorers plus the public cluster.cds.bu.edu. Data is inlined at build time, so each opens with no server.', metric: '3 dashboards', threads: ['gpu', 'python'], row: 0 },
   { id: 'uri', year: 2025.5, type: 'project', era: 'ai', short: 'URI survey', title: 'URI Sheets — New Haven urban forest survey', org: 'Yale-YSE · uri_sheets', detail: 'Real-time urban-forest survey used by field surveyors across New Haven neighbourhoods: React frontend on GitHub Pages, Express backend on App Engine, Google Sheets as the store, with a tree_key species-reconciliation catalog and a seasonal rotation runbook.', metric: 'field-deployed', threads: ['geo'], row: 3 },
   { id: 'msda', year: 2026.4, type: 'foundation', era: 'ai', short: 'M.S. Data Analytics', title: 'M.S., Data Analytics', org: 'University of New Haven', detail: 'Master of Science in Data Analytics — the formal counterpart to a decade of applied research computing.', threads: [], row: 1 },
 ];
@@ -130,6 +130,33 @@ const ARCS = THREADS.flatMap((t) => {
 
 const nodeButtonHeightPct = (row) => (((TICK_GAP + (row + 1) * ROW_H) / H) * 100);
 const eraById = Object.fromEntries(ERAS.map((e) => [e.id, e]));
+
+const threadCard = (t) => (
+  <>
+    <span className="cm-card-tag" data-thread={t.id}><span className="cm-swatch" data-thread={t.id} aria-hidden="true" />{t.label}</span>
+    <p className="cm-card-body">{t.desc}</p>
+  </>
+);
+
+const nodeCard = (n) => {
+  const e = eraById[n.era];
+  return (
+    <>
+      <span className="cm-card-tag" data-era={n.era}>{Math.floor(n.year)} · {e ? e.label : n.era}</span>
+      <p className="cm-card-title">{n.title}</p>
+      <p className="cm-card-org">{n.org}</p>
+      <p className="cm-card-body">{n.detail}</p>
+      {n.threads.length > 0 && (
+        <p className="cm-card-threads">
+          <span className="cm-card-threads-label">threads</span>
+          {n.threads.map((tid) => (
+            <span key={tid} className="cm-mini-tag" data-thread={tid}><span className="cm-swatch" data-thread={tid} aria-hidden="true" />{THREAD_BY_ID[tid].label}</span>
+          ))}
+        </p>
+      )}
+    </>
+  );
+};
 
 export default function CareerMap() {
   const [filter, setFilter] = useState(() => new Set()); // pinned threads (chips)
@@ -189,35 +216,10 @@ export default function CareerMap() {
     };
   }, [pinNode]);
 
-  // detail-card content: thread preview > active node (idle → no card; the plot stands alone)
-  let card;
-  if (hoverThread) {
-    const t = THREAD_BY_ID[hoverThread];
-    card = (
-      <>
-        <span className="cm-card-tag" data-thread={t.id}><span className="cm-swatch" data-thread={t.id} aria-hidden="true" />{t.label}</span>
-        <p className="cm-card-body">{t.desc}</p>
-      </>
-    );
-  } else if (activeNode) {
-    const e = eraById[activeNode.era];
-    card = (
-      <>
-        <span className="cm-card-tag" data-era={activeNode.era}>{Math.floor(activeNode.year)} · {e ? e.label : activeNode.era}</span>
-        <p className="cm-card-title">{activeNode.title}</p>
-        <p className="cm-card-org">{activeNode.org}</p>
-        <p className="cm-card-body">{activeNode.detail}</p>
-        {activeNode.threads.length > 0 && (
-          <p className="cm-card-threads">
-            <span className="cm-card-threads-label">threads</span>
-            {activeNode.threads.map((tid) => (
-              <span key={tid} className="cm-mini-tag" data-thread={tid}><span className="cm-swatch" data-thread={tid} aria-hidden="true" />{THREAD_BY_ID[tid].label}</span>
-            ))}
-          </p>
-        )}
-      </>
-    );
-  }
+  // detail-card content: thread preview > active node (idle → empty reserved slot)
+  let card = null;
+  if (hoverThread) card = threadCard(THREAD_BY_ID[hoverThread]);
+  else if (activeNode) card = nodeCard(activeNode);
 
   return (
     <section className="career-map" id="career" aria-labelledby={`${uid}-h`}>
@@ -324,7 +326,15 @@ export default function CareerMap() {
         </div>
       </div>
 
-      {card && <div className="cm-card" role="status" aria-live="polite">{card}</div>}
+      {/* The slot is always as tall as the tallest possible card (every card is
+          stacked invisibly in one grid cell), so hovering never changes the page
+          height. Otherwise, scrolled to the bottom, the card's mount/unmount moves
+          the node out from under the cursor and back, and the card flickers. */}
+      <div className="cm-card-slot">
+        {THREADS.map((t) => <div key={t.id} className="cm-card cm-card-ghost" aria-hidden="true">{threadCard(t)}</div>)}
+        {NODES.map((n) => <div key={n.id} className="cm-card cm-card-ghost" aria-hidden="true">{nodeCard(n)}</div>)}
+        {card && <div className="cm-card" role="status" aria-live="polite">{card}</div>}
+      </div>
     </section>
   );
 }

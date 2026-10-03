@@ -173,7 +173,12 @@
   font-family: var(--mono);
   color: var(--fg);
   transition: opacity 0.2s ease;
+  /* The 132px-wide button runs from the spine down to its label row, so its empty
+     box covered neighbouring labels (pointing at "BU CDS" opened URI Sheets). Only
+     the visible dot and label take the pointer; the button keeps keyboard focus. */
+  pointer-events: none;
 }
+.cm-dot, .cm-node-label { pointer-events: auto; }
 .cm-dot {
   width: 14px; height: 14px; border-radius: 50%;
   background: var(--bg);
@@ -222,9 +227,11 @@
 }
 
 /* ── detail card ────────────────────────────────────────────────────────── */
+/* fixed-height slot: every card stacked in one cell sizes it (see CareerMap.jsx) */
+.cm-card-slot { display: grid; margin-top: 1.2rem; }
+.cm-card-slot .cm-card { grid-area: 1 / 1; }
+.cm-card-ghost { visibility: hidden; }
 .cm-card {
-  margin-top: 1.2rem;
-  min-height: 6.2rem;
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: 8px;
@@ -250,11 +257,18 @@
 .cm-card-threads-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .cm-mini-tag { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; color: var(--fg); }
 
+/* Desktop: two-column card (header + threads left, description right) keeps the
+   tallest card, and so the reserved slot, short. */
+@media (min-width: 761px) {
+  .cm-card { display: grid; grid-template-columns: minmax(12rem, 17rem) 1fr; column-gap: 1.6rem; align-content: start; }
+  .cm-card > * { grid-column: 1; }
+  .cm-card > .cm-card-body { grid-column: 2; grid-row: 1 / span 4; align-self: start; }
+}
+
 /* ── responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 760px) {
   .career-map { padding: 0 1.1rem; }
   .cm-scrollhint { display: block; }
-  .cm-card { min-height: 7.5rem; }
   /* At 680px the date-positioned 132px labels collide (12 overlapping pairs measured):
      the fix is width, not shrinking text. 1120px == the SVG's native W (CareerMap.jsx),
      so the plot renders at its authored scale and same-row labels clear by ~34px. The

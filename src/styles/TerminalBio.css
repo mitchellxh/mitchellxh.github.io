@@ -52,5 +52,9 @@
 }
 
 @media (max-width: 768px) {
-  .terminal { font-size: 1.05rem; }
+  /* 38ch at a flat 1.05rem is ~384px, wider than the content box on any phone
+     under ~408px (every current iPhone), which scrolled the whole page sideways.
+     Cap the size so 38ch fits between the gutters; 23.2 = 38ch x 0.61em, a
+     conservative monospace advance width. */
+  .terminal { font-size: min(1.05rem, calc((100vw - 2 * var(--content-pad)) / 23.2)); }
 }
